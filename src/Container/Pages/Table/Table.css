@@ -1,0 +1,380 @@
+.table_main .application_main {
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 0px 10px 20px 0px rgba(194, 194, 194, 0.16), 0px 0px 30px 0px rgba(170, 170, 170, 0.16);
+    /* margin-top: 20px; */
+    min-height: 600px;
+    position: relative;
+}
+
+.table_main .application_main h1{
+    font-size: 22px;
+    font-weight: 600;
+    border-bottom: 1px solid #e7e7e7;
+    margin: 0;
+    padding: 15px 0px 10px 0px;
+    margin: 0 10px;
+}
+
+.table_main .application_main .heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #E0E4EC;
+    padding: 15px;
+}
+
+.table_main .application_main .heading h5 {
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 19px;
+}
+
+.application_main .search_tables {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.application_main .search_tables .searching,
+.application_main .search_tables .filteration {
+    border: none;
+    border-bottom: 1.5px solid #787878;
+    position: relative;
+}
+
+.application_main .search_tables div input.search_no {
+    border: none;
+}
+
+.application_main .search_tables div svg {
+    cursor: pointer;
+}
+
+.application_main .search_tables div:first-child input.search_no {
+    font-size: 14px;
+    color: #787878;
+    width: 220px;
+}
+
+.application_main .search_tables div:first-child input:focus-visible {
+    outline: none;
+}
+
+/* .application_main .search_tables div:last-child input {
+    font-size: 14px;
+    color: #787878;
+    width: 100px;
+} */
+
+.application_table {
+    margin-top: 8px;
+}
+
+.application_table thead tr th {
+    text-transform: capitalize;
+    padding: 12px 5px;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: #003a70;
+    color: #fff;
+}
+
+.application_table thead tr th:first-child {
+    padding-left: 15px !important;
+}
+
+.application_table tbody tr td {
+    padding: 10px 5px;
+    font-size: 12px;
+    color: #313131;
+}
+
+.application_table tbody tr td:first-child {
+    padding-left: 15px !important;
+}
+
+.application_table tbody tr td svg {
+    font-size: 21px;
+    cursor: pointer;
+}
+
+.application_table tbody tr:nth-child(even) td {
+    background-color: #F5F9FC;
+}
+
+.application_table tbody tr td .ok_td {
+    color: #299205;
+    background-color: #E6FFDD;
+    font-weight: 600;
+    padding: 4px 30px;
+    border-radius: 100px;
+}
+
+.application_table tbody td .rejected_td {
+    color: #FF0000;
+    background-color: #FFE5E5;
+    font-weight: 600;
+    padding: 5px 18px;
+    border-radius: 100px;
+}
+
+.application_table tbody td .processing_td {
+    font-weight: 600;
+    padding: 5px 18px;
+    border-radius: 100px;
+    color: #D9A900;
+    background-color: #FFF6D6;
+}
+
+.application_table thead tr {
+    vertical-align: middle;
+    background-color: #003a70;
+}
+
+.application_table tbody tr {
+    vertical-align: middle;
+}
+
+.search_btn{
+    border: none;
+    padding: 8px;
+    width: 100%;
+    background-color: #003a70;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 7px;
+    font-size: 14px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: end;
+    padding: 10px 30px;
+    gap: 12px;
+    margin-bottom: 0;
+}
+
+.pagination .previous.disabled a,
+.pagination .next.disabled a {
+    color: lightgrey;
+    text-decoration: none;
+}
+
+.pagination .previous a {
+    color: #003a70;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.pagination .next a {
+    color: #003a70;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.pagination li.active a {
+    background-color: #dfd9d954;
+    padding: 2px 7px;
+    border-radius: 100px;
+    font-weight: 600;
+    color: #003a70;
+}
+
+/* .table_dots{
+    position: relative;
+} */
+
+.table_dots div {
+    position: absolute;
+    background-color: #fff;
+    right: 10px;
+    border: 1px solid lightgrey;
+    width: 95px;
+}
+
+.table_dots div ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.table_dots div ul li {
+    padding: 7px 15px;
+}
+
+.table_dots div ul li:first-child {
+    border-bottom: 1px solid lightgray;
+}
+
+.filteration {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.filteration p {
+    margin-bottom: 0;
+    width: 50px;
+    color: #787878;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.searching .filter_checkboxes,
+.filteration .filter_checkboxes {
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0px 10px 20px 0px rgba(194, 194, 194, 0.16), 0px 0px 30px 0px rgba(170, 170, 170, 0.16);
+    top: 30px;
+    right: 0px;
+    border: 1px solid #E0E4EC;
+    border-radius: 7px;
+    width: 180px;
+    padding: 15px 13px;
+}
+
+.searching .filter_checkboxes .form-check-label,
+.filteration .filter_checkboxes .form-check-label {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.searching .filter_checkboxes .form-check-input,
+.filteration .filter_checkboxes .form-check-input {
+    width: 15px;
+    height: 15px;
+}
+
+.searching .filter_checkboxes .form-check-inline,
+.filteration .filter_checkboxes .form-check-inline {
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.searching .form-check-input:focus {
+    box-shadow: none;
+}
+
+.searching svg {
+    cursor: pointer;
+}
+
+.download_csv {
+    margin-top: 8px;
+    margin-right: 15px;
+    display: flex;
+    justify-content: end;
+}
+
+.download_csv button {
+    background-color: #003a70;
+    border: none;
+    color: #fff;
+    padding: 6px 7px;
+    font-size: 12px;
+    border-radius: 7px;
+    font-weight: 600;
+    display: flex;
+    align-items: end;
+    gap: 3px;
+}
+
+.download_csv button:disabled {
+    background-color: #003a70cf;
+}
+
+.filteration span {
+    display: flex;
+    align-items: center;
+    margin-top: 3px;
+}
+
+.ref_heading{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 15px;
+}
+
+.ref_heading h6{
+    margin-bottom: 0;
+    font-weight: 700;
+    font-size: 15px;
+    color: #25256e;
+}
+
+.application_attachment .modal-body{
+    padding: 0;
+}
+
+.application_attachment .modal-dialog{
+    max-width: 550px;
+}
+
+.application_attachment.print_screen .modal-dialog{
+    max-width: 500px;
+}
+
+.application_attachment .table th{
+    font-size: 14px;
+    text-align: center;
+}
+
+.application_attachment .table-responsive{
+    padding: 0 15px;
+}
+
+.application_attachment .table th tr{
+    vertical-align: middle;
+}
+
+.application_attachment .table tr td{
+    font-size: 14px;
+    text-align: center;
+}
+
+.application_attachment .modal_print{
+    padding: 15px 30px;
+}
+
+.application_attachment .modal_print button{
+    width: 100%;
+}
+
+.application_attachment .modal_print button{
+    background-color: #003a70;
+    border: none;
+    color: #fff;
+    padding: 6px;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.application_attachment .modal_print .row .col-md-6:last-child button{
+    background-color: #da3030;
+}
+
+@media (max-width: 550px) {
+    .application_main .search_tables div:first-child input.search_no{
+        width: 150px;
+    }
+}
+
+@media (max-width: 468px) {
+    .table_main .application_main .heading {
+        flex-direction: column;
+        align-items: start;
+        gap: 10px;
+    }
+
+    .searching .filter_checkboxes {
+        top: 80px;
+    }
+
+}

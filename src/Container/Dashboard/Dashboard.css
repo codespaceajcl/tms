@@ -1,0 +1,232 @@
+.dashboard_main {
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 0px 10px 20px 0px rgba(194, 194, 194, 0.16), 0px 0px 30px 0px rgba(170, 170, 170, 0.16);
+    position: relative;
+    padding: 15px 0px;
+}
+
+.dashboard_main h1{
+    font-size: 22px;
+    font-weight: 600;
+    border-bottom: 1px solid #e7e7e7;
+    padding-bottom: 10px;
+}
+
+.dashboard_boxes {
+    border-radius: 16px;
+    background: #F7F9FB;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.16);
+    padding: 18px 20px;
+    height: 100%;
+}
+
+.dashboard_boxes:first-child{
+    background-color: #c3e2e6;
+}
+
+.dashboard_boxes.depart_box{
+    background-color: #fff2e1;
+}
+
+.dashboard_boxes.total_user{
+    background-color: #f7dae5;
+}
+
+.dashboard_boxes.active_user{
+    background-color: #a8f6fe;
+}
+
+.dashboard_boxes svg{
+    font-size: 30px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 7px;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.16);
+}
+
+.dashboard_boxes h6 {
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.dashboard_boxes h5 {
+    font-weight: 700;
+}
+
+.graph_box {
+    background-color: #fff;
+    border-radius: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.1);
+    height: 100%;
+    padding: 20px 15px;
+}
+
+.graph_box>div {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pie_chart {
+    max-width: 180px;
+    margin: auto;
+}
+
+.graph_box h6 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.application_table.recent_table {
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.16);
+    position: relative;
+    margin-top: 30px;
+}
+
+.application_table.recent_table .heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 10px;
+    border-bottom: 1px solid #E0E4EC;
+    flex-wrap: wrap;
+    gap: 10px 0;
+}
+
+.application_table.recent_table .heading h6 {
+    margin-bottom: 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.application_table.recent_table .heading .search_tables {
+    border-bottom: 1px solid #787878;
+}
+
+.application_table.recent_table .heading .search_tables .recent_search {
+    border: none;
+    background: transparent;
+    padding-right: 10px;
+    width: 190px;
+    font-size: 14px;
+}
+
+.application_table.recent_table .heading .search_tables .recent_search:focus-visible {
+    outline: none;
+}
+
+.application_table.recent_table .table{
+    margin-bottom: 0;
+}
+
+.application_table.recent_table thead tr th {
+    text-transform: capitalize;
+    padding: 12px 5px;
+    font-size: 13px;
+    font-weight: 600;
+    background-color: transparent;
+    color: #fff;
+}
+
+.table_scroll::-webkit-scrollbar {
+    width: 0px;
+}
+
+.table_scroll::-webkit-scrollbar-track {
+    box-shadow: none;
+}
+
+.table_scroll::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+.main_charts{
+    position: relative;
+}
+
+.dashboard_chart {
+    border-radius: 16px;
+    background: #F7F9FB;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.16);
+    padding: 0;
+    margin-top: 30px;
+    min-height: 350px;
+}
+
+.dashboard_chart h6{
+    margin-bottom: 0;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.dashboard_chart .donut_chart{
+    max-width: 200px;
+}
+
+.dashboard_chart .zone_wise{
+    display: flex;
+    /* align-items: center; */
+    margin: 40px 0;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.dashboard_chart .zone_wise ul{
+    margin-bottom: 0;
+}
+
+.dashboard_chart .zone_wise ul li{
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.dashboard_chart .zone_wise ul li div{
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.dashboard_chart .zone_wise ul li div span{
+    width: 70px;
+}
+
+.dashboard_chart .line_chart{
+    margin: 30px 0;
+}
+
+.overlay_coming_soon{
+    position: absolute;
+    top: 0;
+    background-color: rgb(244 247 252 / 0.8);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    color: #000;
+}
+
+.overlay_coming_soon h2{
+    font-weight: 700;
+}
+
+.show_state_div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.line_chart h5, .donut_chart h5{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 230px;
+    font-weight: 600;
+}

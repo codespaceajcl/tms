@@ -1,0 +1,664 @@
+.form_main .download_btn {
+    text-align: end;
+}
+
+.stepper-wrapper {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+.stepper-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    cursor: pointer;
+
+}
+
+.stepper-item::before {
+    position: absolute;
+    content: "";
+    border-bottom: 2px solid #ccc;
+    width: 100%;
+    top: 20px;
+    left: -50%;
+    z-index: 2;
+}
+
+.stepper-item::after {
+    position: absolute;
+    content: "";
+    border-bottom: 2px solid #D9D9D9;
+    width: 100%;
+    top: 20px;
+    left: 50%;
+    z-index: 2;
+}
+
+.stepper-item .step-counter {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #D9D9D9;
+    margin-bottom: 6px;
+    color: #787878;
+    font-weight: 600;
+}
+
+.stepper-item.active {
+    font-weight: bold;
+}
+
+.stepper-item .step-name {
+    font-size: 15px;
+}
+
+.stepper-item.completed .step-counter {
+    background-color: #003a70;
+    color: #fff;
+    font-weight: 600;
+}
+
+.stepper-item:first-child::before {
+    content: none;
+}
+
+.stepper-item:last-child::after {
+    content: none;
+}
+
+.form_main .registration_form {
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 0px 10px 20px 0px rgba(194, 194, 194, 0.16), 0px 0px 30px 0px rgba(170, 170, 170, 0.16);
+    padding: 15px 15px;
+}
+
+.form_main .registration_form h1 {
+    font-size: 22px;
+    font-weight: 600;
+    border-bottom: 1px solid #e7e7e7;
+    padding-bottom: 10px;
+}
+
+.form_main .registration_form .heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #E0E4EC;
+    padding: 8px 12px;
+}
+
+.form_main .registration_form .heading h5 {
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 19px;
+}
+
+.form_main .registration_form .heading div {
+    display: flex;
+    gap: 4px;
+}
+
+.form_main .registration_form .heading div button {
+    border: 1px solid #003a70;
+    color: #003a70;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    background-color: #fff;
+    font-weight: 500;
+    padding: 3px 15px;
+    border-radius: 5px;
+}
+
+.form_main .registration_form .heading div button:last-child {
+    background-color: #0094FF;
+    color: #fff;
+    border: 1px solid #0094FF;
+}
+
+.registration_form .content {
+    padding: 15px 10px;
+}
+
+.registration_form .content p {
+    margin-bottom: 0;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    color: #0094FF;
+    font-weight: 500;
+}
+
+.registration_form .content .form-label {
+    margin-bottom: 1px;
+    color: #000;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+}
+
+.registration_form .content .form-label svg {
+    font-size: 19px;
+    /* padding-bottom: 5px; */
+    /* padding-left: 10px; */
+    font-size: 21px;
+    position: absolute;
+    right: -30px;
+    bottom: 1px;
+    cursor: pointer;
+}
+
+.registration_form .content .form-label span {
+    color: red;
+}
+
+.registration_form .content .form-control {
+    font-size: 13px;
+    padding: 8px 10px;
+    border: 1px solid #787878;
+    color: #787878;
+}
+
+.registration_form .content .form-control::-webkit-outer-spin-button,
+.registration_form .content .form-control::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.registration_form .content .form-control[type=number] {
+    -moz-appearance: textfield;
+}
+
+.registration_form .content .form-control:focus {
+    box-shadow: none;
+    border: 1px solid #003a70;
+}
+
+.registration_form .content .form-control::placeholder {
+    color: #787878;
+}
+
+.registration_form .content .form-control:disabled {
+    background-color: #EEE;
+    border: none;
+}
+
+.registration_form .content .next_btn {
+    display: flex;
+    gap: 10px;
+    justify-content: end;
+}
+
+.registration_form .content .next_btn button {
+    background-color: #003a70;
+    border: none;
+    color: #fff;
+    padding: 7px 45px;
+    font-size: 13px;
+    border-radius: 7px;
+    font-weight: 600;
+}
+
+.doc_type .modal-body {
+    padding: 0;
+}
+
+.add_doc_type {
+    transition: all 0.3s ease 0s;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.add_doc_type .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0px;
+    background-color: #003a70;
+    color: #fff;
+    padding: 10px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.add_doc_type form {
+    padding: 20px;
+}
+
+.add_doc_type form .form-label {
+    margin-bottom: 1px;
+    color: #000;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+}
+
+.add_doc_type form .form-label span {
+    color: red;
+}
+
+.add_doc_type form .form-control {
+    font-size: 13px;
+    padding: 8px 10px;
+    border: 1px solid #787878;
+    color: #000;
+}
+
+.add_doc_type form .form-control:focus {
+    box-shadow: none;
+    border: 1px solid #003a70;
+}
+
+.add_doc_type form .next_btn {
+    display: flex;
+    justify-content: end;
+}
+
+.add_doc_type form .next_btn button {
+    background-color: #003a70;
+    border: none;
+    color: #fff;
+    padding: 7px 45px;
+    font-size: 13px;
+    border-radius: 7px;
+    font-weight: 600;
+}
+
+.add_doc_type .head svg {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.add_doc_type .head h5 {
+    margin-bottom: 0;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.registration_form .edit_profile_img .edit_profile_btn {
+    border: 1px solid #CFCFCF;
+    background: #E6E6E6;
+    padding: 4px 20px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #4C535F;
+    font-weight: 500;
+    font-size: 13px;
+    justify-content: center;
+    width: 100%;
+    cursor: pointer;
+}
+
+.registration_form .edit_profile_img {
+    border: 1px solid #D9D9D9;
+    width: fit-content;
+    margin-left: auto;
+}
+
+.registration_form .edit_profile_img img {
+    padding: 6px;
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    max-width: 150px;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.form_main .tab_show {
+    position: relative;
+}
+
+.preview_doc_modal .modal-dialog {
+    max-width: 600px !important;
+    border: none !important;
+}
+
+.preview_doc_modal .modal-content {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.preview_doc_modal .modal-body {
+    background-color: transparent !important;
+    padding: 0 !important;
+}
+
+/* .preview_show {
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #00000078;
+    overflow: hidden;
+    height: 100%;
+    min-height: 600px;
+} */
+
+/* .preview_show .preview_show_data { */
+/* max-width: 400px; */
+/* position: relative; */
+/* min-width: 400px; */
+/* } */
+
+/* .react-pdf__Page{
+    height: 630px;
+} */
+
+.preview_show .preview_show_data .close_icon {
+    color: #fff;
+    position: absolute;
+    right: -6%;
+    top: 0px;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.preview_show .preview_btn {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+    padding: 0 0;
+}
+
+.preview_show .preview_btn button {
+    width: 18%;
+    background-color: #0094FF;
+    color: #fff;
+    border: none;
+    padding: 7px 0;
+    font-weight: 600;
+    font-size: 13px;
+    border-radius: 10px;
+}
+
+.preview_show .preview_btn button.discard {
+    background-color: #FF5858;
+}
+
+.pdf_chevron svg {
+    color: #fff;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+.pdf_chevron svg:first-child {
+    left: -6%;
+    position: absolute;
+    top: 40%;
+}
+
+.pdf_chevron svg:last-child {
+    position: absolute;
+    right: -6%;
+    top: 40%;
+}
+
+.pdf_chevron svg {
+    color: #fff;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+.registration_form .success_msg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+}
+
+.registration_form .success_msg h5 {
+    text-align: center;
+    margin-bottom: 0;
+    color: #787878;
+    font-size: 17px;
+}
+
+.registration_form .success_msg h3 {
+    font-weight: 700;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.registration_form .success_btn {
+    display: flex;
+    gap: 10px;
+}
+
+.registration_form .success_btn button {
+    background-color: #003a70;
+    border: none;
+    color: #fff;
+    padding: 7px 45px;
+    font-size: 13px;
+    border-radius: 7px;
+    font-weight: 600;
+}
+
+.registration_form .success_btn button:last-child {
+    background-color: #EEEEEE;
+    color: #787878;
+}
+
+.react-pdf__Page__canvas {
+    width: 100% !important;
+}
+
+/* .react-pdf__Page__textContent {
+    width: 100% !important;
+    height: 600px !important;
+} */
+
+.pdf_chevron {
+    display: flex;
+    justify-content: end;
+    gap: 8px;
+    /* margin: 7px 0; */
+}
+
+.pdf_chevron svg {
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.react-pdf__message--error {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px 10px;
+    font-weight: 600;
+    width: 300px;
+    margin: 20px;
+}
+
+.pdf_chevron svg:first-child {
+    position: absolute;
+    left: -6%;
+    top: 40%;
+}
+
+.pdf_chevron svg:last-child {
+    position: absolute;
+    top: 40%;
+    right: -6%;
+}
+
+.print_doc {
+    margin-top: 20px;
+    background-color: #003a70;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 9px;
+    font-weight: 600;
+    font-size: 14px;
+    min-width: 250px;
+}
+
+.attachment_doc {
+    /* display: flex; */
+    /* align-items: center; */
+    border: 1px solid #787878;
+    border-radius: 7px;
+}
+
+.attachment_doc input {
+    border: none !important;
+}
+
+.attachment_doc textarea {
+    border: none !important;
+}
+
+.attachment_doc textarea::-webkit-resizer {
+    display: none;
+}
+
+.attachment_doc .choose_file {
+    font-size: 13px;
+    /* width: 120px; */
+    border-left: 1px solid #787878;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    cursor: pointer;
+    background-color: #003a70;
+    color: #fff;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    font-weight: 600;
+    height: 100%;
+}
+
+.preview_img_file {
+    position: relative !important;
+    bottom: 10px !important;
+    text-align: end !important;
+    display: flex !important;
+    justify-content: end !important;
+    margin-bottom: 10px !important;
+    cursor: pointer !important;
+    color: #000 !important;
+}
+
+.preview_img_file a {
+    color: #000 !important;
+}
+
+.form_field .form-label {
+    margin-bottom: 2px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #000;
+}
+
+.form_field .form-control {
+    font-size: 13px;
+    padding: 8px 10px;
+    border: 1px solid #787878;
+    color: #787878;
+}
+
+.form_field .form-control[type=number] {
+    -moz-appearance: textfield;
+}
+
+.form_field .form-control:focus {
+    border: 1px solid #A9C23F;
+    outline: none;
+    box-shadow: none;
+}
+
+.form_field .form-label span {
+    color: red;
+}
+
+.file_upload_handler label {
+    border: 1.5px solid #787878;
+    border-radius: 10px;
+    height: auto;
+    max-width: 100%;
+    padding: 30px 15px;
+}
+
+.file_upload_handler {
+    margin: 10px 0px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+}
+
+.file_upload_handler .col-md-12 img {
+    background-color: #fff;
+    left: 16px;
+    position: absolute;
+    top: 25px;
+    width: 40px;
+}
+
+.file_upload_handler .col-md-12 {
+    position: relative;
+    padding: 0;
+}
+
+.file_upload_handler span {
+    color: #000!important;
+    font-size: 14px!important;
+    font-weight: 500;
+}
+
+.file_upload_handler svg {
+    margin-right: 30px;
+}
+
+@media (max-width: 1050px) {
+    .announcement_div button {
+        font-size: 13px;
+        padding: 3px 5px;
+    }
+
+    .announcement_div p {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 785px) {
+    .announcement_div {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 767px) {
+    .content .make_reverse {
+        flex-direction: column-reverse;
+    }
+
+    .registration_form .heading {
+        flex-wrap: wrap;
+        gap: 5px 0;
+    }
+
+    .form_main .registration_form .heading div {
+        flex-wrap: wrap;
+    }
+}

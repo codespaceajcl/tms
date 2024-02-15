@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import Form from './Container/Pages/Form/Form';
+import Table from './Container/Pages/Table/Table';
+import Dashboard from './Container/Dashboard/Dashboard';
+import { ToastContainer } from "react-toastify";
+import NotFound from './Container/Pages/NotFound/NotFound';
+// import TrackPlot from './Container/Pages/TrackPlots/TrackPlot';
+import MasterAdminLayout from './Layout/MasterAdminLayout';
+import HomePage from './Container/Pages/HomePage/HomePage';
+import DocDepartment from './Container/Pages/DocDepartment/DocDepartment';
+import DepartmentEnquiry from './Container/Pages/DocDepartment/DepartmentEnquiry';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <BrowserRouter basename='/dms'>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light" />
+      <Routes>
 
+        <Route path="/dashboard" element={<MasterAdminLayout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/add-document" element={<Form />} />
+          <Route path="/dashboard/general-enquiry" element={<Table />} />
+          <Route path="/dashboard/document-department" element={<DocDepartment />} />
+          <Route path="/dashboard/document-department/enquiry" element={<DepartmentEnquiry />} />
+        </Route>
+
+        <Route path="/" element={<HomePage />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
 export default App;
