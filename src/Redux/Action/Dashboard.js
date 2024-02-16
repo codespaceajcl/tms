@@ -77,7 +77,7 @@ export const registerDocumentType = (formData) => async (dispatch) => {
             type: "REGISTER_DOC_TYPE_REQUEST",
         });
 
-        const { data } = await axios.post("archival/registerDocType/", formData);
+        const { data } = await axios.post("archival/registerDocumentType/", formData);
 
         dispatch({
             type: "REGISTER_DOC_TYPE_SUCCESS",
@@ -111,6 +111,52 @@ export const createDocument = (formData) => async (dispatch) => {
     } catch (e) {
         dispatch({
             type: "CREATE_DOCUMENT_FAILED",
+            payload: e?.response?.data?.message,
+            success: false,
+        });
+    }
+};
+
+export const getDepartAndDocType = (formData) => async (dispatch) => {
+    try {
+        dispatch({
+            type: "GET_DEPART_AND_DOC_TYPE_REQUEST",
+        });
+
+        const { data } = await axios.post("archival/getDepartmentAndDocTypes/", formData);
+
+        dispatch({
+            type: "GET_DEPART_AND_DOC_TYPE_SUCCESS",
+            payload: data,
+            success: true,
+        });
+
+    } catch (e) {
+        dispatch({
+            type: "GET_DEPART_AND_DOC_TYPE_FAILED",
+            payload: e?.response?.data?.message,
+            success: false,
+        });
+    }
+};
+
+export const getAllDepartmentDocs = (formData) => async (dispatch) => {
+    try {
+        dispatch({
+            type: "GET_ALL_DEPARTMENT_DOCUMENTS_REQUEST",
+        });
+
+        const { data } = await axios.post("archival/getAllDepartmentDocuments/", formData);
+
+        dispatch({
+            type: "GET_ALL_DEPARTMENT_DOCUMENTS_SUCCESS",
+            payload: data,
+            success: true,
+        });
+
+    } catch (e) {
+        dispatch({
+            type: "GET_ALL_DEPARTMENT_DOCUMENTS_FAILED",
             payload: e?.response?.data?.message,
             success: false,
         });

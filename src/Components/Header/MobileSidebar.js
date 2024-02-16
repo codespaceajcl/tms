@@ -1,23 +1,18 @@
 import { MdClose } from "react-icons/md";
 import React, { useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import { successNotify } from "../../Utils/Toast";
+import { Link, useLocation } from "react-router-dom";
 import userAvatar from "../../images/user_avatar.png"
 
 function MobileSidebar({ navbarRef, NavHandler, sideBarItems }) {
     const { pathname } = useLocation();
-    const navigate = useNavigate();
-    const currentUser = JSON.parse(localStorage.getItem("user"))
+    const getEmail = localStorage.getItem("email")
 
     useEffect(() => {
         navbarRef.current.style.width = "0%";
     }, [pathname]);
 
     const logoutHandler = () => {
-        localStorage.clear();
-        navigate('/')
-        successNotify("Logout Successfully!")
+        window.location.href = "https://crms.ajcl.net/mainMenu.html"
     }
 
     return (
@@ -31,11 +26,12 @@ function MobileSidebar({ navbarRef, NavHandler, sideBarItems }) {
                         <img src={userAvatar} alt="" />
                     </div>
                     <div>
-                        <NavDropdown title={currentUser?.name}>
+                        <h6>{getEmail?.split("@")[0]}</h6>
+                        {/* <NavDropdown title={getEmail?.split("@")[0]}>
                             <NavDropdown.Item onClick={logoutHandler}>
                                 <Link>Logout</Link>
                             </NavDropdown.Item>
-                        </NavDropdown>
+                        </NavDropdown> */}
                     </div>
                 </div>
 
@@ -51,6 +47,10 @@ function MobileSidebar({ navbarRef, NavHandler, sideBarItems }) {
                         </Link>
                     );
                 })}
+                <Link className={"nav-link"} onClick={logoutHandler}>
+                    <span className="overlay-content-number"> 05 - </span>
+                    Logout
+                </Link>
             </div>
         </div>
     );

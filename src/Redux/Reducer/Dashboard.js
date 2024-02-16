@@ -1,148 +1,3 @@
-export const formCreateReducer = (state = {}, action) => {
-    switch (action.type) {
-        case "FORM_POST_REQUEST":
-            return {
-                ...state,
-                loading: true,
-            };
-        case "FORM_POST_SUCCESS":
-            return {
-                ...state,
-                loading: false,
-                formCreateData: action.payload,
-            };
-        case "FORM_POST_FAILED":
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
-            };
-        case "FORM_POST_RESET":
-            return {
-                ...state,
-                formCreateData: null,
-                error: null
-            };
-        default:
-            return state;
-    }
-}
-
-export const formSaveReducer = (state = {}, action) => {
-    switch (action.type) {
-        case "FORM_SAVE_REQUEST":
-            return {
-                ...state,
-                loading: true,
-            };
-        case "FORM_SAVE_SUCCESS":
-            return {
-                ...state,
-                loading: false,
-                formSaveData: action.payload,
-            };
-        case "FORM_SAVE_FAILED":
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
-            };
-        case "FORM_SAVE_RESET":
-            return {
-                ...state,
-                formSaveData: null,
-                error: null
-            };
-        default:
-            return state;
-    }
-}
-
-export const applicationGetReducer = (state = {}, action) => {
-    switch (action.type) {
-        case "APPLICATION_GET_REQUEST":
-            return {
-                ...state,
-                loading: true,
-            };
-        case "APPLICATION_GET_SUCCESS":
-            return {
-                ...state,
-                loading: false,
-                tableGetData: action.payload,
-            };
-        case "APPLICATION_GET_FAILED":
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
-            };
-        default:
-            return state;
-    }
-}
-
-export const ApplicationUploadReducer = (state = {}, action) => {
-    switch (action.type) {
-        case "APPLICATION_UPLOAD_REQUEST":
-            return {
-                ...state,
-                loading: true,
-            };
-        case "APPLICATION_UPLOAD_SUCCESS":
-            return {
-                ...state,
-                loading: false,
-                applicationUploadData: action.payload,
-            };
-        case "APPLICATION_UPLOAD_FAILED":
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
-            };
-        case "APPLICATION_UPLOAD_RESET":
-            return {
-                ...state,
-                applicationUploadData: null,
-                error: null
-            };
-        default:
-            return state;
-    }
-}
-
-export const getDocumentLinkReducer = (state = {}, action) => {
-    switch (action.type) {
-        case "DOCUMENT_LINK_REQUEST":
-            return {
-                ...state,
-                loading: true,
-            };
-        case "DOCUMENT_LINK_SUCCESS":
-            return {
-                ...state,
-                loading: false,
-                documentLinkData: action.payload,
-            };
-        case "DOCUMENT_LINK_FAILED":
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
-            };
-        case "DOCUMENT_LINK_RESET":
-            return {
-                ...state,
-                documentLinkData: null,
-                error: null
-            };
-        default:
-            return state;
-    }
-}
-
-// ======================
 
 export const dashboardGetReducer = (state = {}, action) => {
     switch (action.type) {
@@ -285,6 +140,68 @@ export const createDocumentReducer = (state = {}, action) => {
             return {
                 ...state,
                 documentCreated: null,
+                error: null
+            };
+        default:
+            return state;
+    }
+}
+
+export const getDepartAndDocTypeReducer = (state = {}, action) => {
+    switch (action.type) {
+        case "GET_DEPART_AND_DOC_TYPE_REQUEST":
+            return {
+                ...state,
+                loading: true,
+            };
+        case "GET_DEPART_AND_DOC_TYPE_SUCCESS":
+            return {
+                ...state,
+                loading: false,
+                departmentAndTypeData: action.payload,
+            };
+        case "GET_DEPART_AND_DOC_TYPE_FAILED":
+            return {
+                ...state,
+                loading: false,
+                departmentAndTypeData: null,
+                error: action.payload,
+            };
+        case "GET_DEPART_AND_DOC_TYPE_RESET":
+            return {
+                ...state,
+                departmentAndTypeData: null,
+                error: null
+            };
+        default:
+            return state;
+    }
+}
+
+export const getAllDepartmentDocsReducer = (state = {}, action) => {
+    switch (action.type) {
+        case "GET_ALL_DEPARTMENT_DOCUMENTS_REQUEST":
+            return {
+                ...state,
+                loading: true,
+            };
+        case "GET_ALL_DEPARTMENT_DOCUMENTS_SUCCESS":
+            return {
+                ...state,
+                loading: false,
+                departDocData: action.payload,
+            };
+        case "GET_ALL_DEPARTMENT_DOCUMENTS_FAILED":
+            return {
+                ...state,
+                loading: false,
+                departDocData: null,
+                error: action.payload,
+            };
+        case "GET_ALL_DEPARTMENT_DOCUMENTS_RESET":
+            return {
+                ...state,
+                departDocData: null,
                 error: null
             };
         default:

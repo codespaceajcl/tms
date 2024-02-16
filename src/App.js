@@ -1,12 +1,11 @@
 import React from 'react';
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import MasterAdminLayout from './Layout/MasterAdminLayout';
 import Form from './Container/Pages/Form/Form';
 import Table from './Container/Pages/Table/Table';
 import Dashboard from './Container/Dashboard/Dashboard';
-import { ToastContainer } from "react-toastify";
 import NotFound from './Container/Pages/NotFound/NotFound';
-// import TrackPlot from './Container/Pages/TrackPlots/TrackPlot';
-import MasterAdminLayout from './Layout/MasterAdminLayout';
 import HomePage from './Container/Pages/HomePage/HomePage';
 import DocDepartment from './Container/Pages/DocDepartment/DocDepartment';
 import DepartmentEnquiry from './Container/Pages/DocDepartment/DepartmentEnquiry';
@@ -14,17 +13,7 @@ import DepartmentEnquiry from './Container/Pages/DocDepartment/DepartmentEnquiry
 const App = () => {
   return (
     <BrowserRouter basename='/dms'>
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light" />
+      <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
       <Routes>
 
         <Route path="/dashboard" element={<MasterAdminLayout />}>

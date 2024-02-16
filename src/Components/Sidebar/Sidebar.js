@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { successNotify } from '../../Utils/Toast';
-import './Sidebar.css';
 import { Modal } from 'react-bootstrap';
 import { RiLogoutCircleRLine } from "react-icons/ri";
+import './Sidebar.css';
 
 const Sidebar = ({ dashboardSidebar }) => {
     const { pathname } = useLocation();

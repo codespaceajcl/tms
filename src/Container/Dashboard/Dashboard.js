@@ -10,9 +10,9 @@ import Loader from '../../Utils/Loader';
 // } from 'chart.js';
 // import { Pie, Doughnut, Line, Bar } from 'react-chartjs-2';
 import { MdOutlineFileDownload } from "react-icons/md";
-import './Dashboard.css';
 import { FaUsers } from "react-icons/fa";
 import { IoDocument } from "react-icons/io5";
+import './Dashboard.css';
 
 // ChartJS.register(ArcElement, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Filler, Legend);
 
@@ -28,7 +28,7 @@ const Dashboard = () => {
     formData.append("token", login?.token)
     formData.append("email", login?.email)
 
-    dispatch(dashboardGet(formData))
+    // dispatch(dashboardGet(formData))
   }, [])
 
   // const searchHandler = (e) => {
@@ -152,7 +152,7 @@ const Dashboard = () => {
                           placeholder='Search'
                           // value={searchNo}
                           name="searchNo"
-                        // onChange={searchHandler}
+                          // onChange={searchHandler}
                         />
                       </div>
                     </div>
@@ -204,5 +204,4 @@ const Dashboard = () => {
     </div>
   )
 }
-
 export default Dashboard

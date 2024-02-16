@@ -4,7 +4,7 @@ import './Form.css';
 import { useNavigate } from 'react-router-dom';
 import { errorNotify, successNotify } from '../../../Utils/Toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { createDocument, registerDocumentType } from '../../../Redux/Action/Dashboard';
+import { createDocument, getDepartAndDocType, registerDocumentType } from '../../../Redux/Action/Dashboard';
 import Select from "react-select"
 import { dashboardColorStyles, login, validateData } from '../../../Utils/Helper';
 import { FiPlus } from "react-icons/fi";
@@ -28,10 +28,19 @@ const RegistrationForm = () => {
 
   const { loading, postRegisterDocType } = useSelector((state) => state.docTypeRegister)
   const { loading: createLoading, documentCreated } = useSelector((state) => state.documentCreate)
+  const { loading: docTypeLoading, departmentAndTypeData } = useSelector((state) => state.departandType)
 
   const options = [
     { value: "Pakistan", label: "Pakistan" }
   ]
+
+  useEffect(() => {
+    const formData = new FormData();
+    formData.append("email", login.email)
+    formData.append("token", login.token)
+
+    // dispatch(getDepartAndDocType(formData))
+  }, [])
 
   const submitHandler = () => {
     try {
@@ -48,6 +57,8 @@ const RegistrationForm = () => {
       formData.append("document", docFields.document)
       formData.append("year", docFields.year)
       formData.append("documentPath", file)
+      formData.append("email", login.email)
+      formData.append("token", login.token)
 
       dispatch(createDocument(formData))
     }
@@ -112,7 +123,7 @@ const RegistrationForm = () => {
                   <Col md={6}>
                     <Form.Group className="mb-3">
                       <Form.Label>Department <span>*</span></Form.Label>
-                      <Select options={options} onChange={(value) => setDocFields({
+                      <Select isLoading={docTypeLoading} options={options} onChange={(value) => setDocFields({
                         ...docFields,
                         department: value
                       })} placeholder="Select Department" styles={dashboardColorStyles} />
@@ -121,7 +132,7 @@ const RegistrationForm = () => {
                   <Col md={6}>
                     <Form.Group className="mb-3">
                       <Form.Label><FiPlus onClick={() => setShowAddDocType(true)} /> Document Type <span>*</span> </Form.Label>
-                      <Select options={options} onChange={(value) => setDocFields({
+                      <Select isLoading={docTypeLoading} options={options} onChange={(value) => setDocFields({
                         ...docFields,
                         documentType: value
                       })} placeholder="Select Document Type" styles={dashboardColorStyles} />

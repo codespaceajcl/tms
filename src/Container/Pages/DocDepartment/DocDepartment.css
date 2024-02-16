@@ -37,3 +37,19 @@
 .disabled_select div{
     background-color: #f4f4f4;
 }
+
+.view_btn{
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+}
+
+.view_btn button{
+    width: 100%;
+    color: #fff;
+    background-color: #003a70;
+    border: none;
+    padding: 7px;
+    border-radius: 5px;
+    font-weight: 600;
+    margin-top: 15px;
+}

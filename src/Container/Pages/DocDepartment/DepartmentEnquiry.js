@@ -21,7 +21,7 @@ const DepartmentEnquiry = () => {
 
     // const itemsPerPage = 2;
 
-    const [numFilters, setNumFilters] = useState(null);
+    const [numFilters, setNumFilters] = useState(undefined);
     const [searchValues, setSearchValues] = useState({});
     const [year, setYear] = useState(null);
     // const [currentPage, setCurrentPage] = useState(0);
@@ -32,16 +32,14 @@ const DepartmentEnquiry = () => {
         formData.append("token", login.token)
 
         dispatch(getDepartAndYear(formData))
-    }, [])
 
-    const { loading: optionLoading, departmentYearData } = useSelector((state) => state.departandyear)
-    const { loading: searchLoading, getSearchData } = useSelector((state) => state.searchDocumentData)
-
-    useEffect(() => {
         return () => {
             dispatch({ type: "GET_SEARCH_DOCUMENT_RESET" })
         }
     }, [])
+
+    const { loading: optionLoading, departmentYearData } = useSelector((state) => state.departandyear)
+    const { loading: searchLoading, getSearchData } = useSelector((state) => state.searchDocumentData)
 
     const departOption = departmentYearData?.department?.find((d) => d.value === getDepartment)
     const yearOption = departmentYearData?.year?.map((d) => {
@@ -87,7 +85,9 @@ const DepartmentEnquiry = () => {
 
             <div className='application_main'>
 
-                <h1> <IoIosArrowRoundBack onClick={() => navigate(-1)} style={{fontSize: "30px", cursor: "pointer"}} /> Department Enquiry</h1>
+                <div>
+                    <h1> <IoIosArrowRoundBack onClick={() => navigate(-1)} style={{ fontSize: "30px", cursor: "pointer" }} /> Aviation Department Enquiry </h1>
+                </div>
 
                 {/* <div className='download_csv'>
           <button onClick={downloadCSV}><MdOutlineFileDownload style={{ fontSize: "18px" }} /> Download CSV</button>

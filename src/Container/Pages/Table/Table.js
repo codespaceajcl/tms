@@ -15,7 +15,7 @@ const TableView = () => {
   const dispatch = useDispatch();
   // const itemsPerPage = 2;
 
-  const [numFilters, setNumFilters] = useState(null);
+  const [numFilters, setNumFilters] = useState(undefined);
   const [searchValues, setSearchValues] = useState({});
   const [department, setDepartment] = useState(null);
   const [year, setYear] = useState(null);
@@ -158,7 +158,7 @@ const TableView = () => {
                     {
                       getSearchData?.response?.map((s, i) => {
                         return (
-                          <tr>
+                          <tr key={i}>
                             <td>{i + 1}</td>
                             <td>{s.department}</td>
                             <td>{s.document}</td>
