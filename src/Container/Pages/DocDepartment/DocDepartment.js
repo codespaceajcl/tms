@@ -50,7 +50,7 @@ const DocDepartment = () => {
                             </div>
                         </div>
                     </Col>
-                    <Col md={4}>
+                    {/* <Col md={4}>
                         <div className='department_box'>
                             <h5>JHolding</h5>
                             <div>
@@ -97,7 +97,7 @@ const DocDepartment = () => {
                                 <button onClick={() => departmentHandler("Aviation")}>View</button>
                             </div>
                         </div>
-                    </Col>
+                    </Col> */}
                 </Row>
             </div>
         </div>

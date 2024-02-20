@@ -46,7 +46,7 @@ const HomePage = () => {
     return (
         <div className='loading_main home_page'>
             <div class="spinner"></div>
-            <h6>Archival Loading...</h6>
+            <h6>Docuware Loading...</h6>
         </div>
     )
 }

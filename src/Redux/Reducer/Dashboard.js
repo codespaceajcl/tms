@@ -23,7 +23,7 @@ export const dashboardGetReducer = (state = {}, action) => {
     }
 }
 
-export const getDepartAndYearReducer = (state = {}, action) => {
+export const getDepartmentsReducer = (state = {}, action) => {
     switch (action.type) {
         case "GET_DEPART_AND_YEAR_REQUEST":
             return {
@@ -34,19 +34,50 @@ export const getDepartAndYearReducer = (state = {}, action) => {
             return {
                 ...state,
                 loading: false,
-                departmentYearData: action.payload,
+                departmentsData: action.payload,
             };
         case "GET_DEPART_AND_YEAR_FAILED":
             return {
                 ...state,
                 loading: false,
-                departmentYearData: null,
+                departmentsData: null,
                 error: action.payload,
             };
         case "GET_DEPART_AND_YEAR_RESET":
             return {
                 ...state,
-                departmentYearData: null,
+                departmentsData: null,
+                error: null
+            };
+        default:
+            return state;
+    }
+}
+
+export const getDocTypesReducer = (state = {}, action) => {
+    switch (action.type) {
+        case "GET_DOCS_TYPES_REQUEST":
+            return {
+                ...state,
+                loading: true,
+            };
+        case "GET_DOCS_TYPES_SUCCESS":
+            return {
+                ...state,
+                loading: false,
+                getDocType: action.payload,
+            };
+        case "GET_DOCS_TYPES_FAILED":
+            return {
+                ...state,
+                loading: false,
+                getDocType: null,
+                error: action.payload,
+            };
+        case "GET_DOCS_TYPES_RESET":
+            return {
+                ...state,
+                getDocType: null,
                 error: null
             };
         default:
@@ -202,6 +233,37 @@ export const getAllDepartmentDocsReducer = (state = {}, action) => {
             return {
                 ...state,
                 departDocData: null,
+                error: null
+            };
+        default:
+            return state;
+    }
+}
+
+export const getYearsReducer = (state = {}, action) => {
+    switch (action.type) {
+        case "GET_YEARS_REQUEST":
+            return {
+                ...state,
+                loading: true,
+            };
+        case "GET_YEARS_SUCCESS":
+            return {
+                ...state,
+                loading: false,
+                yearsData: action.payload,
+            };
+        case "GET_YEARS_FAILED":
+            return {
+                ...state,
+                loading: false,
+                yearsData: null,
+                error: action.payload,
+            };
+        case "GET_YEARS_RESET":
+            return {
+                ...state,
+                yearsData: null,
                 error: null
             };
         default:

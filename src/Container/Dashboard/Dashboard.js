@@ -12,6 +12,7 @@ import Loader from '../../Utils/Loader';
 import { MdOutlineFileDownload } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
 import { IoDocument } from "react-icons/io5";
+import { MdOutlineHomeWork } from "react-icons/md";
 import './Dashboard.css';
 
 // ChartJS.register(ArcElement, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Filler, Legend);
@@ -28,30 +29,23 @@ const Dashboard = () => {
     formData.append("token", login?.token)
     formData.append("email", login?.email)
 
-    // dispatch(dashboardGet(formData))
+    dispatch(dashboardGet(formData))
   }, [])
 
   // const searchHandler = (e) => {
-  //   const searchTerm = e.target.value.toLowerCase();
+  //   const inputValue = e.target.value;
+  //   setSearchNo(inputValue);
+  // }
 
-  //   if (!searchTerm) {
-  //     setGetTableData(tableGetData);
-  //   }
-
-  //   else if (getTableData) {
-  //     const filteredData = tableGetData?.filter((t) =>
-  //       selectedFields.some(
-  //         (field) =>
-  //           t[field] &&
-  //           t[field].toString().toLowerCase().includes(searchTerm)
-  //       )
-  //     );
-
-  //     setGetTableData(filteredData);
-  //   }
-
-  //   setSearchNo(e.target.value);
-  // };
+  // const filteredData = dashGetData?.recentDocuments?.filter((c) => {
+  //   const searchString = searchNo?.toLowerCase();
+  //   return (
+  //     c.department?.toLowerCase().includes(searchString) ||
+  //     c.year.includes(searchString) ||
+  //     c.uploadBy?.toLowerCase().includes(searchString) || 
+  //     c.uploadDate?.toLowerCase().includes(searchString)
+  //   );
+  // });
 
   // const pieData = {
   //   labels: ["Total Docs", "Department Docs"],
@@ -113,28 +107,28 @@ const Dashboard = () => {
                 <div className='dashboard_boxes'>
                   <IoDocument />
                   <h6>Total Documents</h6>
-                  <h5>20</h5>
+                  <h5>{dashGetData?.response?.totalDocuments}</h5>
                 </div>
               </Col>
               <Col md={3} sm={6} xs={6}>
                 <div className='dashboard_boxes depart_box'>
-                  <IoDocument />
-                  <h6>Department  Documents</h6>
-                  <h5>10</h5>
+                  <MdOutlineHomeWork />
+                  <h6>Total Departments</h6>
+                  <h5>{dashGetData?.response?.totalDepartments}</h5>
                 </div>
               </Col>
               <Col md={3} sm={6} xs={6}>
                 <div className='dashboard_boxes total_user'>
                   <FaUsers />
                   <h6>Total Users</h6>
-                  <h5>10</h5>
+                  <h5>{dashGetData?.response?.totalUsers}</h5>
                 </div>
               </Col>
               <Col md={3} sm={6} xs={6}>
                 <div className='dashboard_boxes active_user'>
                   <FaUsers />
                   <h6>Active Users</h6>
-                  <h5>5</h5>
+                  <h5>{dashGetData?.response?.totalActiveUsers}</h5>
                 </div>
               </Col>
             </Row>
@@ -145,17 +139,17 @@ const Dashboard = () => {
                   <div className='heading'>
                     <h6>Recent Uploads</h6>
 
-                    <div className='search_tables'>
+                    {/* <div className='search_tables'>
                       <div className='searching'>
                         <input
                           className='recent_search'
                           placeholder='Search'
-                          // value={searchNo}
+                          value={searchNo}
                           name="searchNo"
-                          // onChange={searchHandler}
+                          onChange={searchHandler}
                         />
                       </div>
-                    </div>
+                    </div> */}
                   </div>
 
                   <div className='table_scroll'>
@@ -173,10 +167,11 @@ const Dashboard = () => {
                         </tr>
                       </thead>
                       {
-                        dashGetData?.recentData?.length > 0 &&
+                        dashGetData?.recentDocuments?.length > 0 &&
                         <tbody>
                           {
-                            dashGetData?.recentData?.map((s, i) => {
+                            dashGetData?.recentDocuments?.map((s, i) => {
+                              let splitDate = s.uploadDate?.split(' ').slice(0, 4).join(' ')
                               return (
                                 <tr>
                                   <td>{i + 1}</td>
@@ -185,7 +180,7 @@ const Dashboard = () => {
                                   <td> <a href={s.documentPath} target='_blank' style={{ paddingLeft: "30px" }}> <MdOutlineFileDownload /> </a> </td>
                                   <td>{s.year}</td>
                                   <td>{s.uploadBy}</td>
-                                  <td>{s.uploadDate}</td>
+                                  <td>{splitDate}</td>
                                   <td>{s.uploadTime}</td>
                                 </tr>
                               )
@@ -194,7 +189,7 @@ const Dashboard = () => {
                         </tbody>
                       }
                     </Table>
-                    {dashGetData?.recentData?.length === 0 && <p className='text-center py-3' style={{ fontWeight: "600" }}>No Data Found</p>}
+                    {dashGetData?.recentDocuments?.length === 0 && <p className='text-center py-3' style={{ fontWeight: "600" }}>No Data Found</p>}
                   </div>
                 </div>
               </Col>

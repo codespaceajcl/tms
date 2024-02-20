@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// =====================
 
 export const dashboardGet = (formData) => async (dispatch) => {
     try {
@@ -8,7 +7,7 @@ export const dashboardGet = (formData) => async (dispatch) => {
             type: "DASHBOARD_GET_REQUEST",
         });
 
-        const { data } = await axios.post("archival/getDashboard/", formData);
+        const { data } = await axios.post("docuware/getDashboardData/", formData);
 
         dispatch({
             type: "DASHBOARD_GET_SUCCESS",
@@ -25,13 +24,13 @@ export const dashboardGet = (formData) => async (dispatch) => {
     }
 };
 
-export const getDepartAndYear = (formData) => async (dispatch) => {
+export const getDepartments = (formData) => async (dispatch) => {
     try {
         dispatch({
             type: "GET_DEPART_AND_YEAR_REQUEST",
         });
 
-        const { data } = await axios.post("archival/getDepartmentAndYears/", formData);
+        const { data } = await axios.post("archival/getDepartments/", formData);
 
         dispatch({
             type: "GET_DEPART_AND_YEAR_SUCCESS",
@@ -48,13 +47,36 @@ export const getDepartAndYear = (formData) => async (dispatch) => {
     }
 };
 
+export const getDocTypes = (formData) => async (dispatch) => {
+    try {
+        dispatch({
+            type: "GET_DOCS_TYPES_REQUEST",
+        });
+
+        const { data } = await axios.post("archival/getDocumentTypes/", formData);
+
+        dispatch({
+            type: "GET_DOCS_TYPES_SUCCESS",
+            payload: data,
+            success: true,
+        });
+
+    } catch (e) {
+        dispatch({
+            type: "GET_DOCS_TYPES_FAILED",
+            payload: e?.response?.data?.message,
+            success: false,
+        });
+    }
+};
+
 export const getSearchDocument = (formData) => async (dispatch) => {
     try {
         dispatch({
             type: "GET_SEARCH_DOCUMENT_REQUEST",
         });
 
-        const { data } = await axios.post("archival/searchDocument/", formData);
+        const { data } = await axios.post("docuware/searchDocument/", formData);
 
         dispatch({
             type: "GET_SEARCH_DOCUMENT_SUCCESS",
@@ -100,7 +122,7 @@ export const createDocument = (formData) => async (dispatch) => {
             type: "CREATE_DOCUMENT_REQUEST",
         });
 
-        const { data } = await axios.post("archival/createDocument/", formData);
+        const { data } = await axios.post("archival/addDocument/", formData);
 
         dispatch({
             type: "CREATE_DOCUMENT_SUCCESS",
@@ -123,7 +145,7 @@ export const getDepartAndDocType = (formData) => async (dispatch) => {
             type: "GET_DEPART_AND_DOC_TYPE_REQUEST",
         });
 
-        const { data } = await axios.post("archival/getDepartmentAndDocTypes/", formData);
+        const { data } = await axios.post("docuware/getDepartmentAndDocTypes/", formData);
 
         dispatch({
             type: "GET_DEPART_AND_DOC_TYPE_SUCCESS",
@@ -146,7 +168,7 @@ export const getAllDepartmentDocs = (formData) => async (dispatch) => {
             type: "GET_ALL_DEPARTMENT_DOCUMENTS_REQUEST",
         });
 
-        const { data } = await axios.post("archival/getAllDepartmentDocuments/", formData);
+        const { data } = await axios.post("docuware/getAllDepartmentDocuments/", formData);
 
         dispatch({
             type: "GET_ALL_DEPARTMENT_DOCUMENTS_SUCCESS",
@@ -157,6 +179,29 @@ export const getAllDepartmentDocs = (formData) => async (dispatch) => {
     } catch (e) {
         dispatch({
             type: "GET_ALL_DEPARTMENT_DOCUMENTS_FAILED",
+            payload: e?.response?.data?.message,
+            success: false,
+        });
+    }
+};
+
+export const getYears = (formData) => async (dispatch) => {
+    try {
+        dispatch({
+            type: "GET_YEARS_REQUEST",
+        });
+
+        const { data } = await axios.post("docuware/geYears/", formData);
+
+        dispatch({
+            type: "GET_YEARS_SUCCESS",
+            payload: data,
+            success: true,
+        });
+
+    } catch (e) {
+        dispatch({
+            type: "GET_YEARS_FAILED",
             payload: e?.response?.data?.message,
             success: false,
         });

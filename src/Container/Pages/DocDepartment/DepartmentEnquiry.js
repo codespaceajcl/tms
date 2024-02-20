@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDepartAndYear, getSearchDocument } from '../../../Redux/Action/Dashboard';
+import { getDepartments, getSearchDocument, getYears } from '../../../Redux/Action/Dashboard';
 import Loader from '../../../Utils/Loader';
 import { dashboardColorStyles, login, validateData } from '../../../Utils/Helper';
 // import ReactPaginate from 'react-paginate';
@@ -31,19 +31,22 @@ const DepartmentEnquiry = () => {
         formData.append("email", login.email)
         formData.append("token", login.token)
 
-        dispatch(getDepartAndYear(formData))
+        dispatch(getDepartments(formData))
+        dispatch(getYears(formData))
 
         return () => {
             dispatch({ type: "GET_SEARCH_DOCUMENT_RESET" })
         }
     }, [])
 
-    const { loading: optionLoading, departmentYearData } = useSelector((state) => state.departandyear)
     const { loading: searchLoading, getSearchData } = useSelector((state) => state.searchDocumentData)
+    const { loading: departmentLoading, departmentsData } = useSelector((state) => state.departmentGet)
+    const { loading: yearsLoading, yearsData } = useSelector((state) => state.yearsGet)
 
-    const departOption = departmentYearData?.department?.find((d) => d.value === getDepartment)
-    const yearOption = departmentYearData?.year?.map((d) => {
-        return { value: d.value, label: d.value }
+    const departOption = departmentsData?.response?.find((d) => d.name === getDepartment)
+
+    const yearOption = yearsData?.year?.map((d) => {
+        return { value: d, label: d }
     })
 
     const handleNumFiltersChange = (event) => {
@@ -60,7 +63,7 @@ const DepartmentEnquiry = () => {
     const searchEnquiryHandler = () => {
 
         let data = {
-            department: getDepartment,
+            department: departOption?.id.toString(),
             year: year?.toString(),
             filterCount: numFilters?.toString(),
             ...searchValues
@@ -103,13 +106,13 @@ const DepartmentEnquiry = () => {
                     <Col md={3}>
                         <Form.Group className="form_field">
                             <Form.Label>Department <span>*</span> </Form.Label>
-                            <Select isLoading={optionLoading} value={{ value: departOption?.value, label: departOption?.value }} isDisabled className='disabled_select' placeholder="Select Department" styles={dashboardColorStyles} />
+                            <Select isLoading={departmentLoading} value={{ value: departOption?.id, label: departOption?.name }} isDisabled className='disabled_select' placeholder="Select Department" styles={dashboardColorStyles} />
                         </Form.Group>
                     </Col>
                     <Col md={3}>
                         <Form.Group className="form_field">
                             <Form.Label>Year <span>*</span> </Form.Label>
-                            <Select isLoading={optionLoading} onChange={(d) => setYear(d.value)} options={yearOption} placeholder="Select Year" styles={dashboardColorStyles} />
+                            <Select isLoading={yearsLoading} onChange={(d) => setYear(d.value)} options={yearOption} placeholder="Select Year" styles={dashboardColorStyles} />
                         </Form.Group>
                     </Col>
                 </Row>
@@ -161,7 +164,7 @@ const DepartmentEnquiry = () => {
                                                     <tr>
                                                         <td>{i + 1}</td>
                                                         <td>{s.department}</td>
-                                                        <td>{s.document}</td>
+                                                        <td>{s.documentNo}</td>
                                                         <td> <a href={s.documentPath} target='_blank' style={{ paddingLeft: "30px" }}> <MdOutlineFileDownload /> </a> </td>
                                                         <td>{s.year}</td>
                                                         <td>{s.uploadBy}</td>

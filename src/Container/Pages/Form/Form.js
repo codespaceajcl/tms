@@ -4,7 +4,7 @@ import './Form.css';
 import { useNavigate } from 'react-router-dom';
 import { errorNotify, successNotify } from '../../../Utils/Toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { createDocument, getDepartAndDocType, registerDocumentType } from '../../../Redux/Action/Dashboard';
+import { createDocument, getDepartAndDocType, getDepartments, getDocTypes, registerDocumentType } from '../../../Redux/Action/Dashboard';
 import Select from "react-select"
 import { dashboardColorStyles, login, validateData } from '../../../Utils/Helper';
 import { FiPlus } from "react-icons/fi";
@@ -18,6 +18,7 @@ const RegistrationForm = () => {
 
   const [showAddDocType, setShowAddDocType] = useState(false)
   const [addDocType, setAddDocType] = useState('')
+  const [addDepart, setAddDepart] = useState('')
   const [docFields, setDocFields] = useState({
     department: null,
     documentType: null,
@@ -28,18 +29,44 @@ const RegistrationForm = () => {
 
   const { loading, postRegisterDocType } = useSelector((state) => state.docTypeRegister)
   const { loading: createLoading, documentCreated } = useSelector((state) => state.documentCreate)
-  const { loading: docTypeLoading, departmentAndTypeData } = useSelector((state) => state.departandType)
+  const { loading: departmentLoading, departmentsData } = useSelector((state) => state.departmentGet)
+  const { loading: docTypeLoading, getDocType } = useSelector((state) => state.docTypesGet)
 
-  const options = [
-    { value: "Pakistan", label: "Pakistan" }
-  ]
+  useEffect(() => {
+    if (documentCreated?.response) {
+      successNotify("Document Created Successfully!");
+      dispatch({ type: "CREATE_DOCUMENT_RESET" })
+
+      setDocFields({
+        department: null,
+        documentType: null,
+        document: '',
+        year: ''
+      })
+      setFile(null)
+    }
+  }, [documentCreated])
+
+  useEffect(() => {
+    if (postRegisterDocType?.response === "success") {
+      successNotify("Document Type Register Successfully!");
+      setShowAddDocType(false)
+      dispatch({ type: "REGISTER_DOC_TYPE_RESET" })
+
+      const formData = new FormData();
+      formData.append("email", login.email)
+      formData.append("token", login.token)
+      dispatch(getDocTypes(formData))
+    }
+  }, [postRegisterDocType])
 
   useEffect(() => {
     const formData = new FormData();
     formData.append("email", login.email)
     formData.append("token", login.token)
 
-    // dispatch(getDepartAndDocType(formData))
+    dispatch(getDepartments(formData))
+    dispatch(getDocTypes(formData))
   }, [])
 
   const submitHandler = () => {
@@ -54,9 +81,9 @@ const RegistrationForm = () => {
       const formData = new FormData();
       formData.append("department", docFields.department.value)
       formData.append("documentType", docFields.documentType.value)
-      formData.append("document", docFields.document)
+      formData.append("documentNo", docFields.document)
       formData.append("year", docFields.year)
-      formData.append("documentPath", file)
+      formData.append("documentFile", file)
       formData.append("email", login.email)
       formData.append("token", login.token)
 
@@ -69,18 +96,31 @@ const RegistrationForm = () => {
 
   const registerDocHandler = () => {
 
-    if (addDocType.length === 0) {
+    if (addDocType.length === 0 || addDepart?.length === 0) {
       errorNotify("Please fill the field")
       return;
     }
 
     const formData = new FormData();
-    formData.append("registerDocType", addDocType)
+    formData.append("name", addDocType)
+    formData.append("department", addDepart)
     formData.append("email", login.email)
     formData.append("token", login.token)
 
     dispatch(registerDocumentType(formData))
   }
+
+  const departOptions = departmentsData?.response?.map((d) => {
+    return {
+      value: d?.id, label: d.name
+    }
+  })
+
+  const departDocOptions = getDocType?.response?.map((d) => {
+    return {
+      value: d?.id, label: d.name
+    }
+  })
 
   const modal = <Modal centered className='doc_type' show={showAddDocType}>
     <Modal.Body>
@@ -91,6 +131,13 @@ const RegistrationForm = () => {
         </div>
         <Form>
           <Row>
+            <Col md={12}>
+              <Form.Group className="mb-3">
+                <Form.Label>Department <span>*</span></Form.Label>
+                <Select isLoading={departmentLoading} options={departOptions} onChange={(e) => setAddDepart(e.value)}
+                  placeholder="Select Department" styles={dashboardColorStyles} />
+              </Form.Group>
+            </Col>
             <Col md={12}>
               <Form.Group className="mb-3">
                 <Form.Label>Document Type Register <span>*</span></Form.Label>
@@ -123,19 +170,19 @@ const RegistrationForm = () => {
                   <Col md={6}>
                     <Form.Group className="mb-3">
                       <Form.Label>Department <span>*</span></Form.Label>
-                      <Select isLoading={docTypeLoading} options={options} onChange={(value) => setDocFields({
+                      <Select isLoading={departmentLoading} options={departOptions} onChange={(value) => setDocFields({
                         ...docFields,
                         department: value
-                      })} placeholder="Select Department" styles={dashboardColorStyles} />
+                      })} value={docFields.department} placeholder="Select Department" styles={dashboardColorStyles} />
                     </Form.Group>
                   </Col>
                   <Col md={6}>
                     <Form.Group className="mb-3">
                       <Form.Label><FiPlus onClick={() => setShowAddDocType(true)} /> Document Type <span>*</span> </Form.Label>
-                      <Select isLoading={docTypeLoading} options={options} onChange={(value) => setDocFields({
+                      <Select isLoading={docTypeLoading} options={departDocOptions} onChange={(value) => setDocFields({
                         ...docFields,
                         documentType: value
-                      })} placeholder="Select Document Type" styles={dashboardColorStyles} />
+                      })} value={docFields.documentType} placeholder="Select Document Type" styles={dashboardColorStyles} />
                     </Form.Group>
                   </Col>
                   <Col md={6}>
@@ -144,7 +191,7 @@ const RegistrationForm = () => {
                       <Form.Control type="text" onChange={(e) => setDocFields({
                         ...docFields,
                         document: e.target.value
-                      })} placeholder="Enter Document No" />
+                      })} value={docFields.document} placeholder="Enter Document No" />
                     </Form.Group>
                   </Col>
                   <Col md={6}>
@@ -153,7 +200,7 @@ const RegistrationForm = () => {
                       <Form.Control type="number" onChange={(e) => setDocFields({
                         ...docFields,
                         year: e.target.value
-                      })} placeholder="Enter Year" />
+                      })} value={docFields.year} placeholder="Enter Year" />
                     </Form.Group>
                   </Col>
                   <Col md={12}>
@@ -161,6 +208,7 @@ const RegistrationForm = () => {
                       <Col md={12}>
                         <FileUploader name="file"
                           types={["pdf"]}
+                          value={file}
                           handleChange={(v) => setFile(v)}
                           label="Attached Document" />
                         <img src={DocImg} />

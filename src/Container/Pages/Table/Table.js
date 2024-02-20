@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDepartAndYear, getSearchDocument } from '../../../Redux/Action/Dashboard';
+import { getDepartments, getSearchDocument, getYears } from '../../../Redux/Action/Dashboard';
 import Loader from '../../../Utils/Loader';
 import { dashboardColorStyles, login, validateData } from '../../../Utils/Helper';
 // import ReactPaginate from 'react-paginate';
@@ -8,7 +8,6 @@ import { Col, Form, Row, Spinner, Table } from 'react-bootstrap';
 import { errorNotify } from '../../../Utils/Toast';
 import Select from "react-select";
 import { MdOutlineFileDownload } from "react-icons/md";
-
 import './Table.css';
 
 const TableView = () => {
@@ -26,24 +25,26 @@ const TableView = () => {
     formData.append("email", login.email)
     formData.append("token", login.token)
 
-    dispatch(getDepartAndYear(formData))
-  }, [])
+    dispatch(getDepartments(formData))
+    dispatch(getYears(formData))
 
-  const { loading: optionLoading, departmentYearData } = useSelector((state) => state.departandyear)
-  const { loading: searchLoading, getSearchData } = useSelector((state) => state.searchDocumentData)
-
-  useEffect(() => {
     return () => {
       dispatch({ type: "GET_SEARCH_DOCUMENT_RESET" })
     }
   }, [])
 
-  const departOption = departmentYearData?.department?.map((d) => {
-    return { value: d.value, label: d.value }
+  const { loading: searchLoading, getSearchData } = useSelector((state) => state.searchDocumentData)
+  const { loading: departmentLoading, departmentsData } = useSelector((state) => state.departmentGet)
+  const { loading: yearsLoading, yearsData } = useSelector((state) => state.yearsGet)
+
+  const departOption = departmentsData?.response?.map((d) => {
+    return {
+      value: d?.id, label: d.name
+    }
   })
 
-  const yearOption = departmentYearData?.year?.map((d) => {
-    return { value: d.value, label: d.value }
+  const yearOption = yearsData?.year?.map((d) => {
+    return { value: d, label: d }
   })
 
   const handleNumFiltersChange = (event) => {
@@ -60,7 +61,7 @@ const TableView = () => {
   const searchEnquiryHandler = () => {
 
     let data = {
-      department,
+      department: department?.toString(),
       year: year?.toString(),
       filterCount: numFilters?.toString(),
       ...searchValues
@@ -101,13 +102,13 @@ const TableView = () => {
           <Col md={3}>
             <Form.Group className="form_field">
               <Form.Label>Department <span>*</span> </Form.Label>
-              <Select isLoading={optionLoading} onChange={(d) => setDepartment(d.value)} options={departOption} placeholder="Select Department" styles={dashboardColorStyles} />
+              <Select isLoading={departmentLoading} onChange={(d) => setDepartment(d.value)} options={departOption} placeholder="Select Department" styles={dashboardColorStyles} />
             </Form.Group>
           </Col>
           <Col md={3}>
             <Form.Group className="form_field">
               <Form.Label>Year <span>*</span> </Form.Label>
-              <Select isLoading={optionLoading} onChange={(d) => setYear(d.value)} options={yearOption} placeholder="Select Year" styles={dashboardColorStyles} />
+              <Select isLoading={yearsLoading} onChange={(d) => setYear(d.value)} options={yearOption} placeholder="Select Year" styles={dashboardColorStyles} />
             </Form.Group>
           </Col>
         </Row>
@@ -161,7 +162,7 @@ const TableView = () => {
                           <tr key={i}>
                             <td>{i + 1}</td>
                             <td>{s.department}</td>
-                            <td>{s.document}</td>
+                            <td>{s.documentNo}</td>
                             <td> <a href={s.documentPath} target='_blank' style={{ paddingLeft: "30px" }}> <MdOutlineFileDownload /> </a> </td>
                             <td>{s.year}</td>
                             <td>{s.uploadBy}</td>
