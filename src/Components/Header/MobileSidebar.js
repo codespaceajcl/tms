@@ -17,9 +17,7 @@ function MobileSidebar({ navbarRef, NavHandler, sideBarItems }) {
 
     return (
         <div className="overlay" ref={navbarRef}>
-            <span className="closebtn" onClick={NavHandler}>
-                <MdClose />
-            </span>
+            <span className="closebtn" onClick={NavHandler}> <MdClose /> </span>
             <div className={"overlay-content"}>
                 <div className="d-flex align-items-center text-white gap-2 mb-3">
                     <div className="mobile_sidebar_avatar">
@@ -27,28 +25,18 @@ function MobileSidebar({ navbarRef, NavHandler, sideBarItems }) {
                     </div>
                     <div>
                         <h6>{getEmail?.split("@")[0]}</h6>
-                        {/* <NavDropdown title={getEmail?.split("@")[0]}>
-                            <NavDropdown.Item onClick={logoutHandler}>
-                                <Link>Logout</Link>
-                            </NavDropdown.Item>
-                        </NavDropdown> */}
                     </div>
                 </div>
-
                 {sideBarItems?.map((item, index) => {
                     return (
-                        <Link
-                            key={item.path}
-                            to={item.path}
-                            className={pathname === item.path ? "nav-active" : "nav-link"}
-                        >
+                        <Link key={item.path} to={item.path} className={pathname === item.path ? "nav-active" : "nav-link"}>
                             <span className="overlay-content-number"> {index < 9 ? `0${index + 1}` : `${index + 1}`} - </span>
                             {item.title}
                         </Link>
                     );
                 })}
                 <Link className={"nav-link"} onClick={logoutHandler}>
-                    <span className="overlay-content-number"> 05 - </span>
+                    <span className="overlay-content-number"> 0{sideBarItems?.length + 1} - </span>
                     Logout
                 </Link>
             </div>

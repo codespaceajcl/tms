@@ -1,75 +1,5 @@
 import axios from "axios";
 
-
-export const dashboardGet = (formData) => async (dispatch) => {
-    try {
-        dispatch({
-            type: "DASHBOARD_GET_REQUEST",
-        });
-
-        const { data } = await axios.post("docuware/getDashboardData/", formData);
-
-        dispatch({
-            type: "DASHBOARD_GET_SUCCESS",
-            payload: data,
-            success: true,
-        });
-
-    } catch (e) {
-        dispatch({
-            type: "DASHBOARD_GET_FAILED",
-            payload: e?.response?.data?.message,
-            success: false,
-        });
-    }
-};
-
-export const getDepartments = (formData) => async (dispatch) => {
-    try {
-        dispatch({
-            type: "GET_DEPART_AND_YEAR_REQUEST",
-        });
-
-        const { data } = await axios.post("archival/getDepartments/", formData);
-
-        dispatch({
-            type: "GET_DEPART_AND_YEAR_SUCCESS",
-            payload: data,
-            success: true,
-        });
-
-    } catch (e) {
-        dispatch({
-            type: "GET_DEPART_AND_YEAR_FAILED",
-            payload: e?.response?.data?.message,
-            success: false,
-        });
-    }
-};
-
-export const getDocTypes = (formData) => async (dispatch) => {
-    try {
-        dispatch({
-            type: "GET_DOCS_TYPES_REQUEST",
-        });
-
-        const { data } = await axios.post("archival/getDocumentTypes/", formData);
-
-        dispatch({
-            type: "GET_DOCS_TYPES_SUCCESS",
-            payload: data,
-            success: true,
-        });
-
-    } catch (e) {
-        dispatch({
-            type: "GET_DOCS_TYPES_FAILED",
-            payload: e?.response?.data?.message,
-            success: false,
-        });
-    }
-};
-
 export const getSearchDocument = (formData) => async (dispatch) => {
     try {
         dispatch({
@@ -185,23 +115,71 @@ export const getAllDepartmentDocs = (formData) => async (dispatch) => {
     }
 };
 
-export const getYears = (formData) => async (dispatch) => {
+// ===============================================
+
+export const dashboardGet = (formData) => async (dispatch) => {
     try {
         dispatch({
-            type: "GET_YEARS_REQUEST",
+            type: "DASHBOARD_GET_REQUEST",
         });
 
-        const { data } = await axios.post("docuware/geYears/", formData);
+        const { data } = await axios.post("docuware/getDashboardData/", formData);
 
         dispatch({
-            type: "GET_YEARS_SUCCESS",
+            type: "DASHBOARD_GET_SUCCESS",
             payload: data,
             success: true,
         });
 
     } catch (e) {
         dispatch({
-            type: "GET_YEARS_FAILED",
+            type: "DASHBOARD_GET_FAILED",
+            payload: e?.response?.data?.message,
+            success: false,
+        });
+    }
+};
+
+export const getDepartments = (formData) => async (dispatch) => {
+    try {
+        dispatch({
+            type: "GET_DEPART_AND_YEAR_REQUEST",
+        });
+
+        const { data } = await axios.post("archival/getDepartments/", formData);
+
+        dispatch({
+            type: "GET_DEPART_AND_YEAR_SUCCESS",
+            payload: data,
+            success: true,
+        });
+
+    } catch (e) {
+        dispatch({
+            type: "GET_DEPART_AND_YEAR_FAILED",
+            payload: e?.response?.data?.message,
+            success: false,
+        });
+    }
+};
+
+export const getAllTenders = (formData) => async (dispatch) => {
+    try {
+        dispatch({
+            type: "GET_ALL_TENDERS_REQUEST",
+        });
+
+        const { data } = await axios.post("docuware/getAllTenders/", formData);
+
+        dispatch({
+            type: "GET_ALL_TENDERS_SUCCESS",
+            payload: data,
+            success: true,
+        });
+
+    } catch (e) {
+        dispatch({
+            type: "GET_ALL_TENDERS_FAILED",
             payload: e?.response?.data?.message,
             success: false,
         });

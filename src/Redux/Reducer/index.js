@@ -1,12 +1,10 @@
 import { combineReducers } from "redux";
 import {
     createDocumentReducer, dashboardGetReducer, getAllDepartmentDocsReducer, getDepartAndDocTypeReducer, getDepartmentsReducer,
-    getDocTypesReducer,
-    getSearchDocumentReducer, getYearsReducer, registerDocumentTypeReducer
+    getDocTypesReducer, getSearchDocumentReducer, registerDocumentTypeReducer, getAllTendersReducer
 } from "./Dashboard";
 
 const rootReducer = combineReducers({
-
     getDashboard: dashboardGetReducer,
     departmentGet: getDepartmentsReducer,
     docTypesGet: getDocTypesReducer,
@@ -15,8 +13,7 @@ const rootReducer = combineReducers({
     documentCreate: createDocumentReducer,
     departandType: getDepartAndDocTypeReducer,
     AlldepartDocs: getAllDepartmentDocsReducer,
-    yearsGet: getYearsReducer
-
+    TendersAllData: getAllTendersReducer
 })
 
 export default rootReducer;

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import './HomePage.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 // import { getCurrentUserProfile } from '../../../Redux/Action/Admin';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { errorNotify } from '../../../Utils/Toast';
+import './HomePage.css';
 
 const HomePage = () => {
     const navigate = useNavigate();
@@ -46,9 +46,8 @@ const HomePage = () => {
     return (
         <div className='loading_main home_page'>
             <div class="spinner"></div>
-            <h6>Docuware Loading...</h6>
+            <h6>TMS Loading...</h6>
         </div>
     )
 }
-
 export default HomePage

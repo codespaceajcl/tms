@@ -1,17 +1,3 @@
-.dropdown-menu.show {
-    left: auto;
-    right: 0;
-}
-
-.dropdown-menu.show .dropdown-item:active{
-    background-color: transparent;
-}
-
-.dropdown-menu.show .dropdown-item a {
-    color: #000;
-    text-decoration: none;
-}
-
 .main_header {
     background-color: #fff;
     padding: 8px 0;

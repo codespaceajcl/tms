@@ -22,15 +22,15 @@
 }
 
 .dashboard_boxes:first-child{
-    background-color: #c3e2e6;
+    background-color: #7dc3f5;
 }
 
 .dashboard_boxes.depart_box{
-    background-color: #fff2e1;
+    background-color: #45fda7;
 }
 
 .dashboard_boxes.total_user{
-    background-color: #f7dae5;
+    background-color: #ffa5ae;
 }
 
 .dashboard_boxes.active_user{
@@ -47,8 +47,8 @@
 }
 
 .dashboard_boxes h6 {
-    font-weight: 500;
-    font-size: 15px;
+    font-weight: 600;
+    font-size: 16px;
 }
 
 .dashboard_boxes h5 {

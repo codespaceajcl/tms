@@ -240,30 +240,30 @@ export const getAllDepartmentDocsReducer = (state = {}, action) => {
     }
 }
 
-export const getYearsReducer = (state = {}, action) => {
+export const getAllTendersReducer = (state = {}, action) => {
     switch (action.type) {
-        case "GET_YEARS_REQUEST":
+        case "GET_ALL_TENDERS_REQUEST":
             return {
                 ...state,
                 loading: true,
             };
-        case "GET_YEARS_SUCCESS":
+        case "GET_ALL_TENDERS_SUCCESS":
             return {
                 ...state,
                 loading: false,
-                yearsData: action.payload,
+                allTendersData: action.payload,
             };
-        case "GET_YEARS_FAILED":
+        case "GET_ALL_TENDERS_FAILED":
             return {
                 ...state,
                 loading: false,
-                yearsData: null,
+                allTendersData: null,
                 error: action.payload,
             };
-        case "GET_YEARS_RESET":
+        case "GET_ALL_TENDERS_RESET":
             return {
                 ...state,
-                yearsData: null,
+                allTendersData: null,
                 error: null
             };
         default:

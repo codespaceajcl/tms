@@ -13,7 +13,7 @@ const NotFound = () => {
                 <h1>404</h1>
                 <h3>Page Not Found</h3>
                 <p>The page you are looking for is no longer available</p>
-                <button onClick={() => navigate('/')}>Return</button>
+                <button onClick={() => navigate(-1)}>Return</button>
             </Container>
         </div>
     );

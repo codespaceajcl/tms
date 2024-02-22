@@ -1,3 +1,8 @@
+import { GoHome } from "react-icons/go";
+import { MdOutlineShareLocation, MdOutlineGridView } from "react-icons/md";
+import { IoDocument } from "react-icons/io5";
+import { HiClipboardDocumentCheck } from "react-icons/hi2";
+
 const getEmail = localStorage.getItem("email")
 const Token = localStorage.getItem("token")
 
@@ -33,3 +38,36 @@ export const dashboardColorStyles = {
         };
     },
 };
+
+export const dashboardSidebar = [
+    {
+        path: "/dashboard",
+        icon: <GoHome />,
+        title: "Dashboard",
+    },
+    {
+        path: "/dashboard/all-tenders",
+        icon: <MdOutlineGridView />,
+        title: "All Tenders",
+    },
+    {
+        path: "/dashboard/assigned-tenders",
+        icon: <IoDocument />,
+        title: "Assigned Tenders",
+    },
+    {
+        path: "/dashboard/interested-tenders",
+        icon: <IoDocument />,
+        title: "Interested Tenders",
+    },
+    {
+        path: "/dashboard/documents",
+        icon: <MdOutlineShareLocation />,
+        title: "Documents",
+    },
+    {
+        path: "/dashboard/tender-results",
+        icon: <HiClipboardDocumentCheck />,
+        title: "Tender Results",
+    },
+];

@@ -180,6 +180,7 @@
 }
 
 .registration_form .content .form-control[type=number] {
+    appearance: textfield;
     -moz-appearance: textfield;
 }
 
@@ -581,6 +582,7 @@
 }
 
 .form_field .form-control[type=number] {
+    appearance: textfield;
     -moz-appearance: textfield;
 }
 

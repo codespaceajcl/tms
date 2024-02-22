@@ -75,8 +75,8 @@
 
 .application_table thead tr th {
     text-transform: capitalize;
-    padding: 12px 5px;
-    font-size: 12px;
+    padding: 12x 5px;
+    font-size: 13px;
     font-weight: 600;
     background-color: #003a70;
     color: #fff;
@@ -88,7 +88,7 @@
 
 .application_table tbody tr td {
     padding: 10px 5px;
-    font-size: 12px;
+    font-size: 14px;
     color: #313131;
 }
 
@@ -136,6 +136,81 @@
 
 .application_table tbody tr {
     vertical-align: middle;
+}
+
+.application_table .selected_btn{
+    border: none;
+    background-color: #003a70;
+    color: #fff;
+    padding: 5px 25px;
+    font-size: 14px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.application_table.assigned_tenders td span{
+    display: flex;
+    gap: 0 8px;
+}
+
+.application_table.assigned_tenders td span.show_yellow{
+    color: #a58102;
+    background-color: #ffff5bad;
+    justify-content: center;
+    padding: 5px 0;
+    font-weight: 500;
+    border-radius: 100px;
+}
+
+.application_table.assigned_tenders td span.show_red{
+    color: red;
+    background-color: #ffcbcb;
+    justify-content: center;
+    padding: 5px 0;
+    font-weight: 500;
+    border-radius: 100px;
+}
+
+.application_table.assigned_tenders td span.show_green{
+    color: green;
+    background-color: #b9ffb4;
+    justify-content: center;
+    padding: 5px 0;
+    font-weight: 500;
+    border-radius: 100px;
+}
+
+.application_table .selected_btn.interested{
+    background-color: rgb(43, 166, 43);
+}
+
+.application_table .selected_btn.not_interested{
+    background-color: #f32626;
+}
+
+.doc_type.proceed .modal-content{
+    padding: 20px 0;
+}
+
+.doc_type.proceed .modal-body h5{
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.doc_type.proceed form .next_btn {
+    display: flex;
+    justify-content: end;
+    justify-content: center;
+    gap: 0 10px;
+}
+
+.doc_type.proceed form .next_btn button:first-child{
+    background-color: red;
+}
+
+.doc_type.proceed form .next_btn button:last-child{
+    background-color: #299205;
 }
 
 .search_btn{
