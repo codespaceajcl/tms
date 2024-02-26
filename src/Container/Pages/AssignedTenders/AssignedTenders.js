@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { getDepartments, getSearchDocument } from '../../../Redux/Action/Dashboard';
 import Loader from '../../../Utils/Loader';
-import { dashboardColorStyles, login } from '../../../Utils/Helper';
+import { TableStyles, dashboardColorStyles, login } from '../../../Utils/Helper';
 import { Col, Form, Modal, Row, Spinner, Table } from 'react-bootstrap';
 import { errorNotify } from '../../../Utils/Toast';
 import Select from "react-select";
+import { MdOutlineFileDownload } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 
 const AssignedTenders = () => {
@@ -70,6 +71,11 @@ const AssignedTenders = () => {
         </Modal.Body>
     </Modal>
 
+    const options = [
+        { value: "interested", label: "Interested" },
+        { value: "not-interested", label: "Not Interested" },
+    ]
+
     return (
         <div className='table_main'>
             {modal}
@@ -102,6 +108,7 @@ const AssignedTenders = () => {
                                         <th>Uploaded Date</th>
                                         <th>Due Date</th>
                                         <th>Uploaded Time</th>
+                                        <th>Download</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -113,10 +120,10 @@ const AssignedTenders = () => {
                                         <td>12-02-2024</td>
                                         <td>12:00 PM</td>
                                         <td> <span className='show_yellow'>5-03-2024</span> </td>
+                                        <td> <a style={{ paddingLeft: "25px" }}> <MdOutlineFileDownload /> </a> </td>
                                         <td>
                                             <span>
-                                                <button className='selected_btn interested' onClick={() => setShow(true)}>interested</button>
-                                                <button className='selected_btn not_interested'>Not-interested</button>
+                                                <Select placeholder="Select Actions" options={options} styles={TableStyles} />
                                             </span>
                                         </td>
                                     </tr>
@@ -127,10 +134,10 @@ const AssignedTenders = () => {
                                         <td>12-02-2024</td>
                                         <td>12:00 PM</td>
                                         <td><span className='show_red'>22-02-2024</span></td>
+                                        <td> <a style={{ paddingLeft: "25px" }}><MdOutlineFileDownload /></a> </td>
                                         <td>
                                             <span>
-                                                <button className='selected_btn interested' onClick={() => setShow(true)}>interested</button>
-                                                <button className='selected_btn not_interested'>Not-interested</button>
+                                                <Select placeholder="Select Actions" options={options} styles={TableStyles} />
                                             </span>
                                         </td>
                                     </tr>
@@ -141,10 +148,10 @@ const AssignedTenders = () => {
                                         <td>12-02-2024</td>
                                         <td>12:00 PM</td>
                                         <td><span className='show_green'>25-03-2024</span></td>
+                                        <td> <a style={{ paddingLeft: "25px" }}><MdOutlineFileDownload /></a> </td>
                                         <td>
                                             <span>
-                                                <button className='selected_btn interested' onClick={() => setShow(true)}>interested</button>
-                                                <button className='selected_btn not_interested'>Not-interested</button>
+                                                <Select placeholder="Select Actions" options={options} styles={TableStyles} />
                                             </span>
                                         </td>
                                     </tr>

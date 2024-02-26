@@ -7,6 +7,8 @@ import Loader from '../../Utils/Loader';
 import { MdOutlineFileDownload } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
 import { IoDocument } from "react-icons/io5";
+import { HiClipboardDocumentCheck } from "react-icons/hi2";
+import { IoDocumentLock } from "react-icons/io5";
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -41,14 +43,14 @@ const Dashboard = () => {
               </Col>
               <Col md={3} sm={6} xs={6}>
                 <div className='dashboard_boxes depart_box'>
-                  <IoDocument />
+                  <HiClipboardDocumentCheck />
                   <h6>Tender Wins</h6>
                   <h5>60</h5>
                 </div>
               </Col>
               <Col md={3} sm={6} xs={6}>
                 <div className='dashboard_boxes total_user'>
-                  <IoDocument />
+                  <IoDocumentLock />
                   <h6>Tender Lose</h6>
                   <h5>40</h5>
                 </div>
@@ -63,21 +65,17 @@ const Dashboard = () => {
             </Row>
 
             <Row style={{ padding: "0 15px" }}>
-              <Col md={12}>
+              <Col md={7}>
                 <div className='application_table recent_table'>
                   <div className='heading'> <h6>Recent Uploads</h6> </div>
                   <div className='table_scroll'>
                     <Table responsive>
                       <thead>
                         <tr>
-                          <th>S No.</th>
                           <th>Department</th>
                           <th>Document No.</th>
-                          <th>Document Url</th>
-                          <th>Year</th>
-                          <th>Uploaded By</th>
                           <th>Uploaded Date</th>
-                          <th>Uploaded Time</th>
+                          <th>Document Url</th>
                         </tr>
                       </thead>
                       {
@@ -88,12 +86,9 @@ const Dashboard = () => {
                               let splitDate = s.uploadDate?.split(' ').slice(0, 4).join(' ')
                               return (
                                 <tr>
-                                  <td>{i + 1}</td>
                                   <td>{s.department}</td>
                                   <td>{s.document}</td>
                                   <td> <a href={s.documentPath} target='_blank' style={{ paddingLeft: "30px" }}> <MdOutlineFileDownload /> </a> </td>
-                                  <td>{s.year}</td>
-                                  <td>{s.uploadBy}</td>
                                   <td>{splitDate}</td>
                                   <td>{s.uploadTime}</td>
                                 </tr>
@@ -104,6 +99,28 @@ const Dashboard = () => {
                       }
                     </Table>
                     {dashGetData?.recentDocuments?.length === 0 && <p className='text-center py-3' style={{ fontWeight: "600" }}>No Data Found</p>}
+                  </div>
+                </div>
+              </Col>
+              <Col md={5}>
+                <div className='dashboard_right_box'>
+                  <h5>PPRA Stats</h5>
+
+                  <div>
+                    <h6>Total</h6>
+                    <p>40</p>
+                  </div>
+                  <div>
+                    <h6>Aviation</h6>
+                    <p>20</p>
+                  </div>
+                  <div>
+                    <h6>TnT</h6>
+                    <p>5</p>
+                  </div>
+                  <div>
+                    <h6>IT</h6>
+                    <p>8</p>
                   </div>
                 </div>
               </Col>

@@ -21,3 +21,16 @@
     background-size: 100% 100%;
     color: #fff;
 }
+
+.doc_details{
+    padding: 15px;
+}
+
+.doc_details h6{
+    font-weight: 600;
+}
+
+.doc_details div{
+    border-bottom: 1px solid lightgrey;
+    margin-bottom: 20px;
+}

@@ -7,7 +7,7 @@
     position: relative;
 }
 
-.table_main .application_main h1{
+.table_main .application_main h1 {
     font-size: 22px;
     font-weight: 600;
     border-bottom: 1px solid #e7e7e7;
@@ -138,7 +138,7 @@
     vertical-align: middle;
 }
 
-.application_table .selected_btn{
+.application_table .selected_btn {
     border: none;
     background-color: #003a70;
     color: #fff;
@@ -146,53 +146,59 @@
     font-size: 14px;
     border-radius: 8px;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.application_table.assigned_tenders td span{
+.application_table.assigned_tenders td span {
     display: flex;
     gap: 0 8px;
 }
 
-.application_table.assigned_tenders td span.show_yellow{
+.application_table.assigned_tenders td span.show_yellow {
     color: #a58102;
     background-color: #ffff5bad;
     justify-content: center;
-    padding: 5px 0;
     font-weight: 500;
     border-radius: 100px;
+    width: fit-content;
+    padding: 5px 22px;
 }
 
-.application_table.assigned_tenders td span.show_red{
+.application_table.assigned_tenders td span.show_red {
     color: red;
     background-color: #ffcbcb;
     justify-content: center;
-    padding: 5px 0;
     font-weight: 500;
     border-radius: 100px;
+    width: fit-content;
+    padding: 5px 22px;
 }
 
-.application_table.assigned_tenders td span.show_green{
+.application_table.assigned_tenders td span.show_green {
     color: green;
     background-color: #b9ffb4;
     justify-content: center;
-    padding: 5px 0;
     font-weight: 500;
     border-radius: 100px;
+    width: fit-content;
+    padding: 5px 22px;
 }
 
-.application_table .selected_btn.interested{
+.application_table .selected_btn.interested {
     background-color: rgb(43, 166, 43);
 }
 
-.application_table .selected_btn.not_interested{
+.application_table .selected_btn.not_interested {
     background-color: #f32626;
 }
 
-.doc_type.proceed .modal-content{
+.doc_type.proceed .modal-content {
     padding: 20px 0;
 }
 
-.doc_type.proceed .modal-body h5{
+.doc_type.proceed .modal-body h5 {
     text-align: center;
     font-weight: 600;
     margin-bottom: 20px;
@@ -205,15 +211,15 @@
     gap: 0 10px;
 }
 
-.doc_type.proceed form .next_btn button:first-child{
+.doc_type.proceed form .next_btn button:first-child {
     background-color: red;
 }
 
-.doc_type.proceed form .next_btn button:last-child{
+.doc_type.proceed form .next_btn button:last-child {
     background-color: #299205;
 }
 
-.search_btn{
+.search_btn {
     border: none;
     padding: 8px;
     width: 100%;
@@ -369,59 +375,59 @@
     margin-top: 3px;
 }
 
-.ref_heading{
+.ref_heading {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 15px 15px;
 }
 
-.ref_heading h6{
+.ref_heading h6 {
     margin-bottom: 0;
     font-weight: 700;
     font-size: 15px;
     color: #25256e;
 }
 
-.application_attachment .modal-body{
+.application_attachment .modal-body {
     padding: 0;
 }
 
-.application_attachment .modal-dialog{
+.application_attachment .modal-dialog {
     max-width: 550px;
 }
 
-.application_attachment.print_screen .modal-dialog{
+.application_attachment.print_screen .modal-dialog {
     max-width: 500px;
 }
 
-.application_attachment .table th{
+.application_attachment .table th {
     font-size: 14px;
     text-align: center;
 }
 
-.application_attachment .table-responsive{
+.application_attachment .table-responsive {
     padding: 0 15px;
 }
 
-.application_attachment .table th tr{
+.application_attachment .table th tr {
     vertical-align: middle;
 }
 
-.application_attachment .table tr td{
+.application_attachment .table tr td {
     font-size: 14px;
     text-align: center;
 }
 
-.application_attachment .modal_print{
+.application_attachment .modal_print {
     padding: 15px 30px;
 }
 
-.application_attachment .modal_print button{
+.application_attachment .modal_print button {
     width: 100%;
 }
 
-.application_attachment .modal_print button{
+.application_attachment .modal_print button {
     background-color: #003a70;
     border: none;
     color: #fff;
@@ -431,12 +437,12 @@
     border-radius: 5px;
 }
 
-.application_attachment .modal_print .row .col-md-6:last-child button{
+.application_attachment .modal_print .row .col-md-6:last-child button {
     background-color: #da3030;
 }
 
 @media (max-width: 550px) {
-    .application_main .search_tables div:first-child input.search_no{
+    .application_main .search_tables div:first-child input.search_no {
         width: 150px;
     }
 }

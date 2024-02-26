@@ -6,6 +6,7 @@ import { dashboardColorStyles, login } from '../../../Utils/Helper';
 // import { getAllDepartmentDocs, getDepartments } from '../../../Redux/Action/Dashboard';
 import { MdOutlineClose } from "react-icons/md";
 import Select from "react-select";
+import { MdOutlineFileDownload } from "react-icons/md";
 import './InterestedTender.css';
 
 const InterestedTenders = () => {
@@ -102,7 +103,7 @@ const InterestedTenders = () => {
                             <Row className='align-items-center'>
                                 <Col md={10}>
                                     <div>
-                                        <p><span>Tender Name: </span> Testing1</p>
+                                        <p><span>Tender Name: </span> Testing1  <a style={{ paddingLeft: "25px", fontSize: "20px" }}><MdOutlineFileDownload /></a> </p>
                                         <p><span>Tender Due Date: </span> <b className='urgent'> 29-2-2024 </b> </p>
                                         <p><span>Tender Description: </span>
                                             Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -110,6 +111,8 @@ const InterestedTenders = () => {
                                             when an unknown printer took a galley of type and scrambled
                                             it to make a type specimen book.
                                         </p>
+                                        <p><span>Summary: </span> Lorem Ipsum is simply dummy text of the printing
+                                            and typesetting industry. Lorem Ipsum has been the industry's standard dummy text...</p>
                                     </div>
                                 </Col>
                                 <Col md={2}>
@@ -133,6 +136,8 @@ const InterestedTenders = () => {
                                             when an unknown printer took a galley of type and scrambled
                                             it to make a type specimen book.
                                         </p>
+                                        <p><span>Summary: </span> Lorem Ipsum is simply dummy text of the printing
+                                            and typesetting industry. Lorem Ipsum has been the industry's standard dummy text...</p>
                                     </div>
                                 </Col>
                                 <Col md={2}>
@@ -156,6 +161,8 @@ const InterestedTenders = () => {
                                             when an unknown printer took a galley of type and scrambled
                                             it to make a type specimen book.
                                         </p>
+                                        <p><span>Summary: </span> Lorem Ipsum is simply dummy text of the printing
+                                            and typesetting industry. Lorem Ipsum has been the industry's standard dummy text...</p>
                                     </div>
                                 </Col>
                                 <Col md={2}>

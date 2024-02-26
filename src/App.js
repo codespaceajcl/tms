@@ -16,14 +16,14 @@ const App = () => {
     <BrowserRouter basename='/tms'>
       <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
       <Routes>
-
         <Route path="/dashboard" element={<MasterAdminLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/all-tenders" element={<Table />} />
           <Route path="/dashboard/assigned-tenders" element={<AssignedTenders />} />
           <Route path="/dashboard/interested-tenders" element={<InterestedTenders />} />
-          <Route path="/dashboard/documents" element={<Documents />} />
+          <Route path="/dashboard/applied-tenders" element={<Documents />} />
           <Route path="/dashboard/tender-results" element={<TenderResults />} />
+          <Route path='/dashboard/' />
         </Route>
 
         <Route path="/" element={<HomePage />} />

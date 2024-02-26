@@ -8,6 +8,11 @@ import { errorNotify } from '../../../Utils/Toast';
 import Select from "react-select";
 import { MdOutlineClose } from "react-icons/md";
 // import { useNavigate } from 'react-router-dom';
+import Lottie from 'react-lottie';
+import SuccessLoti from "../../../Utils/Lottie/success.json";
+import lossLoti from "../../../Utils/Lottie/loss.json";
+import winLoti from "../../../Utils/Lottie/win.json";
+import { GoThumbsup, GoThumbsdown } from "react-icons/go";
 import './TenderResults.css';
 
 const TenderResults = () => {
@@ -17,6 +22,10 @@ const TenderResults = () => {
     const [department, setDepartment] = useState(null);
     const [show, setShow] = useState(false)
     const [show2, setShow2] = useState(false)
+    const [winShow, setWinShow] = useState(false)
+    const [lossShow, setLossShow] = useState(false)
+    const [file, setFile] = useState(null)
+    const [comment, setComment] = useState('')
 
     useEffect(() => {
         const formData = new FormData();
@@ -29,6 +38,33 @@ const TenderResults = () => {
             dispatch({ type: "GET_SEARCH_DOCUMENT_RESET" })
         }
     }, [])
+
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: SuccessLoti,
+        rendererSettings: {
+            preserveAspectRatio: 'xMidYMid slice'
+        }
+    };
+
+    const LossOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: lossLoti,
+        rendererSettings: {
+            preserveAspectRatio: 'xMidYMid slice'
+        }
+    };
+
+    const winOptions = {
+        loop: false,
+        autoplay: true,
+        animationData: winLoti,
+        rendererSettings: {
+            preserveAspectRatio: 'xMidYMid slice'
+        }
+    };
 
     const { loading: searchLoading, getSearchData } = useSelector((state) => state.searchDocumentData)
     const { loading: departmentLoading, departmentsData } = useSelector((state) => state.departmentGet)
@@ -53,6 +89,18 @@ const TenderResults = () => {
         // dispatch(getSearchDocument(data))
     }
 
+    const submitWinHandler = (e) => {
+        e.preventDefault();
+
+        console.log(file)
+
+        const formData = new FormData();
+        formData.append("file", file)
+
+        setWinShow(true)
+        setShow(false)
+    }
+
     const modal = <Modal centered className='doc_type' show={show}>
         <Modal.Body>
             <div className='add_doc_type' style={{ transition: "all 0.3s ease" }}>
@@ -60,17 +108,17 @@ const TenderResults = () => {
                     <h5>Document</h5>
                     <MdOutlineClose onClick={() => setShow(false)} />
                 </div>
-                <Form>
+                <Form onSubmit={submitWinHandler}>
                     <Row>
                         <Col md={12}>
                             <Form.Group className="mb-3">
                                 <Form.Label>Attached Document <span>*</span></Form.Label>
-                                <Form.Control type="file" />
+                                <Form.Control type="file" onChange={(e) => setFile(e.target.files)} />
                             </Form.Group>
                         </Col>
                         <Col md={12}>
                             <div className='next_btn'>
-                                <button> Submit </button>
+                                <button type='submit'> Submit </button>
                             </div>
                         </Col>
                     </Row>
@@ -78,6 +126,37 @@ const TenderResults = () => {
             </div>
         </Modal.Body>
     </Modal>
+
+    const winModal = <Modal centered show={winShow} onHide={() => setWinShow(false)}>
+        <Modal.Body>
+            <Lottie options={winOptions}
+                height={500}
+                width={500}
+                style={{
+                    maxWidth: "500px", margin: "auto", display: "flex", justifyContent: "center", textAlign: "center",
+                    position: "absolute", bottom: "10px"
+                }}
+            />
+            <div className='win_modal'>
+                <Lottie options={defaultOptions}
+                    height={170}
+                    width={170}
+                    style={{ maxWidth: "170px", margin: "auto", display: "flex", justifyContent: "center", textAlign: "center" }}
+                />
+                <h3>Congratulations <br />
+                    On Winning Tender </h3>
+            </div>
+        </Modal.Body>
+    </Modal>
+
+    const loseHandler = (e) => {
+        e.preventDefault();
+
+        console.log(comment)
+
+        setLossShow(true)
+        setShow2(false)
+    }
 
     const loseModal = <Modal centered className='doc_type' show={show2}>
         <Modal.Body>
@@ -86,17 +165,17 @@ const TenderResults = () => {
                     <h5>Reason</h5>
                     <MdOutlineClose onClick={() => setShow2(false)} />
                 </div>
-                <Form>
+                <Form onSubmit={loseHandler}>
                     <Row>
                         <Col md={12}>
                             <Form.Group className="mb-3">
                                 <Form.Label>Comment <span>*</span></Form.Label>
-                                <Form.Control as="textarea" rows={3} placeholder='Enter Comment' />
+                                <Form.Control as="textarea" rows={3} placeholder='Enter Comment' onChange={(e) => setComment(e.target.value)} />
                             </Form.Group>
                         </Col>
                         <Col md={12}>
                             <div className='next_btn'>
-                                <button> Submit </button>
+                                <button type='submit'> Submit </button>
                             </div>
                         </Col>
                     </Row>
@@ -105,10 +184,27 @@ const TenderResults = () => {
         </Modal.Body>
     </Modal>
 
+    const modal2 = <Modal centered show={lossShow} onHide={() => setLossShow(false)}>
+        <Modal.Body>
+
+            <div className='win_modal'>
+                <Lottie options={LossOptions}
+                    height={170}
+                    width={170}
+                    style={{ maxWidth: "170px", margin: "auto", display: "flex", justifyContent: "center", textAlign: "center" }}
+                />
+                <h3>Better Luck <br />
+                    Next Time! </h3>
+            </div>
+        </Modal.Body>
+    </Modal>
+
     return (
         <div className='table_main'>
             {modal}
             {loseModal}
+            {winModal}
+            {modal2}
             <div className='application_main'>
                 <h1>Assigned Tenders</h1>
 
@@ -120,8 +216,9 @@ const TenderResults = () => {
                         </Form.Group>
                     </Col>
                     <Col md={3}>
-                        <button className='search_btn' onClick={searchDepartmentHandler} disabled={searchLoading}>
-                            {searchLoading ? <Spinner animation='border' size='sm' /> : 'Search'} </button>
+                        <button className='search_btn' onClick={searchDepartmentHandler}>
+                            Search
+                        </button>
                     </Col>
                 </Row>
                 {
@@ -137,7 +234,7 @@ const TenderResults = () => {
                                         <th>Uploaded Date</th>
                                         <th>Due Date</th>
                                         <th>Submitted Date</th>
-                                        <th>Action</th>
+                                        <th> <span style={{ paddingLeft: "90px" }}> Action </span> </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -151,8 +248,8 @@ const TenderResults = () => {
                                         <td>5-03-2024</td>
                                         <td>
                                             <span>
-                                                <button className='selected_btn not_interested' onClick={() => setShow2(true)}>Loss</button>
-                                                <button className='selected_btn interested' onClick={() => setShow(true)}>Win</button>
+                                                <button className='selected_btn not_interested' onClick={() => setShow2(true)}>Loss <GoThumbsdown style={{ fontSize: "18px" }} /></button>
+                                                <button className='selected_btn interested' onClick={() => setShow(true)}>Win <GoThumbsup style={{ fontSize: "18px" }} /> </button>
                                             </span>
                                         </td>
                                     </tr>
@@ -166,8 +263,8 @@ const TenderResults = () => {
                                         <td>22-02-2024</td>
                                         <td>
                                             <span>
-                                                <button className='selected_btn not_interested' onClick={() => setShow2(true)}>Loss</button>
-                                                <button className='selected_btn interested' onClick={() => setShow(true)}>Win</button>
+                                                <button className='selected_btn not_interested' onClick={() => setShow2(true)}>Loss <GoThumbsdown style={{ fontSize: "18px" }} /></button>
+                                                <button className='selected_btn interested' onClick={() => setShow(true)}>Win <GoThumbsup style={{ fontSize: "18px" }} /> </button>
                                             </span>
                                         </td>
                                     </tr>
@@ -181,8 +278,8 @@ const TenderResults = () => {
                                         <td>25-03-2024</td>
                                         <td>
                                             <span>
-                                                <button className='selected_btn not_interested' onClick={() => setShow2(true)}>Loss</button>
-                                                <button className='selected_btn interested' onClick={() => setShow(true)}>Win</button>
+                                                <button className='selected_btn not_interested' onClick={() => setShow2(true)}>Loss <GoThumbsdown style={{ fontSize: "18px" }} /></button>
+                                                <button className='selected_btn interested' onClick={() => setShow(true)}>Win <GoThumbsup style={{ fontSize: "18px" }} /> </button>
                                             </span>
                                         </td>
                                     </tr>

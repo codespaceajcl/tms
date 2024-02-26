@@ -249,6 +249,14 @@
     position: relative;
 }
 
+.add_doc_type form .form-label svg{
+    bottom: 3px;
+    cursor: pointer;
+    font-size: 18px;
+    position: absolute;
+    right: -25px;
+}
+
 .add_doc_type form .form-label span {
     color: red;
 }
@@ -282,7 +290,11 @@
 
 .add_doc_type .head svg {
     cursor: pointer;
-    font-size: 20px;
+    font-size: 23px;
+    background-color: #fff;
+    color: #003a70;
+    border-radius: 100px;
+    padding: 3px;
 }
 
 .add_doc_type .head h5 {
@@ -340,6 +352,15 @@
 .preview_doc_modal .modal-body {
     background-color: transparent !important;
     padding: 0 !important;
+}
+
+.win_modal h3{
+    font-weight: 700;
+}
+
+.win_modal{
+    padding: 30px 0;
+    text-align: center;
 }
 
 /* .preview_show {

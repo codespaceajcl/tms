@@ -6,6 +6,7 @@ import { dashboardColorStyles, login } from '../../../Utils/Helper';
 // import { getAllDepartmentDocs, getDepartments } from '../../../Redux/Action/Dashboard';
 import { MdOutlineClose } from "react-icons/md";
 import Select from "react-select";
+import { MdOutlineFileDownload } from "react-icons/md";
 import './Documents.css';
 
 const Documents = () => {
@@ -14,7 +15,8 @@ const Documents = () => {
 
     const [department, setDepartment] = useState(null);
     const [show, setShow] = useState(false)
-    const [tab, setTab] = useState("all")
+    const [detailShow, setDetailShow] = useState(false)
+    const [tab, setTab] = useState("all");
 
     useEffect(() => {
         const formData = new FormData();
@@ -37,7 +39,7 @@ const Documents = () => {
 
     const departOption = departmentsData?.response?.map((d) => {
         return {
-            value: d?.id, label: d.name
+            value: d?.id, label: d?.name
         }
     })
 
@@ -98,9 +100,37 @@ const Documents = () => {
         </Modal.Body>
     </Modal>
 
+    const modal2 = <Modal centered className='doc_type' show={detailShow} size='lg'>
+        <Modal.Body>
+            <div className='add_doc_type' style={{ transition: "all 0.3s ease" }}>
+                <div className='head'>
+                    <h5>Document Detail</h5>
+                    <MdOutlineClose onClick={() => setDetailShow(false)} />
+                </div>
+                <div className='doc_details'>
+                    <div>
+                        <h6>Tender Name:</h6>
+                        <p>Testing1</p>
+                    </div>
+                    <div>
+                        <h6>Tender Due Date:</h6>
+                        <p>22-02-2024</p>
+                    </div>
+                    <div>
+                        <h6>Tender Description</h6>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                            when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                    </div>
+                </div>
+            </div>
+        </Modal.Body>
+    </Modal>
+
     return (
         <div className='dashboard_main' style={{ padding: "15px 10px" }}>
             {modal}
+            {modal2}
             <Row>
                 <Col md={12}>
                     <h1>Documents</h1>
@@ -122,9 +152,9 @@ const Documents = () => {
             </Row>
 
             <div className='documents_tabs'>
-                <button onClick={() => setTab("all")} className={tab === "all" && 'active'}>All Documents</button>
-                <button onClick={() => setTab("pending")} className={tab === "pending" && 'active'}>Pending Documents</button>
-                <button onClick={() => setTab("completed")} className={tab === "completed" && 'active'}>Completed Documents</button>
+                <button onClick={() => setTab("all")} className={tab === "all" ? 'active' : undefined}>All Documents</button>
+                <button onClick={() => setTab("pending")} className={tab === "pending" ? 'active' : undefined}>Pending Documents</button>
+                <button onClick={() => setTab("completed")} className={tab === "completed" ? 'active' : undefined}>Completed Documents</button>
             </div>
 
             <div className='mt-3 mx-3'>
@@ -134,17 +164,21 @@ const Documents = () => {
                             <Row className='align-items-center'>
                                 <Col md={12}>
                                     <div>
-                                        <p><span>Tender Name: </span> Testing1</p>
+                                        <p><span>Tender Name: </span> Testing1 <a style={{ paddingLeft: "25px", fontSize: "20px" }}><MdOutlineFileDownload /></a></p>
                                         <p><span>Tender Due Date: </span> <b className='urgent'> 29-2-2024 </b> </p>
                                         <p><span>Status: </span> <b className='urgent'>Pending</b></p>
+                                        <p><span>Requirement: </span> <b className='not_urgent'>Submitted</b></p>
                                         <p><span>Tender Description: </span>
                                             Lorem Ipsum is simply dummy text of the printing and typesetting industry.....
+                                        </p>
+                                        <p><span>Summary: </span>
+                                            Lorem Ipsum is simply dummy text of the printing.....
                                         </p>
                                     </div>
                                 </Col>
                                 <Col md={12}>
                                     <div className='d-flex' style={{ gap: "15px" }}>
-                                        <button>Details</button>
+                                        <button onClick={() => setDetailShow(true)}>Details</button>
                                         <button onClick={() => proceedHandler("Aviation")}>Submit Docs.</button>
                                     </div>
                                 </Col>
@@ -156,17 +190,21 @@ const Documents = () => {
                             <Row className='align-items-center'>
                                 <Col md={12}>
                                     <div>
-                                        <p><span>Tender Name: </span> Testing2</p>
+                                        <p><span>Tender Name: </span> Testing2  <a style={{ paddingLeft: "25px", fontSize: "20px" }}><MdOutlineFileDownload /></a></p>
                                         <p><span>Tender Due Date: </span> <b className='not_urgent'> 29-2-2024 </b></p>
                                         <p><span>Status: </span> <b className='urgent'>Pending</b></p>
+                                        <p><span>Requirement: </span> <b className='not_urgent'>Submitted</b></p>
                                         <p><span>Tender Description: </span>
                                             Lorem Ipsum is simply dummy text of the printing and typesetting industry....
                                         </p>
+                                        <p><span>Summary: </span>
+                                            Lorem Ipsum is simply dummy text of the printing.....
+                                        </p>
                                     </div>
                                 </Col>
                                 <Col md={12}>
                                     <div className='d-flex' style={{ gap: "15px" }}>
-                                        <button>Details</button>
+                                        <button onClick={() => setDetailShow(true)}>Details</button>
                                         <button onClick={() => proceedHandler("Aviation")}>Submit Docs.</button>
                                     </div>
                                 </Col>
@@ -178,17 +216,21 @@ const Documents = () => {
                             <Row className='align-items-center'>
                                 <Col md={12}>
                                     <div>
-                                        <p><span>Tender Name: </span> Testing3</p>
+                                        <p><span>Tender Name: </span> Testing3  <a style={{ paddingLeft: "25px", fontSize: "20px" }}><MdOutlineFileDownload /></a></p>
                                         <p><span>Tender Due Date: </span> <b className='near_by'> 29-2-2024 </b></p>
                                         <p><span>Status: </span> <b className='not_urgent'>Submitted</b></p>
+                                        <p><span>Requirement: </span> <b className='not_urgent'>Submitted</b></p>
                                         <p><span>Tender Description: </span>
                                             Lorem Ipsum is simply dummy text of the printing and typesetting industry.....
+                                        </p>
+                                        <p><span>Summary: </span>
+                                            Lorem Ipsum is simply dummy text of the printing.....
                                         </p>
                                     </div>
                                 </Col>
                                 <Col md={12}>
                                     <div className='d-flex' style={{ gap: "15px" }}>
-                                        <button>Details</button>
+                                        <button onClick={() => setDetailShow(true)}>Details</button>
                                     </div>
                                 </Col>
                             </Row>

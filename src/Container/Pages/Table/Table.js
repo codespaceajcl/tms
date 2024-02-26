@@ -5,12 +5,15 @@ import { dashboardColorStyles, login } from '../../../Utils/Helper';
 import { Col, Form, Modal, Row, Table } from 'react-bootstrap';
 import Select from "react-select";
 import { MdOutlineClose } from "react-icons/md";
+import { FaPlus } from "react-icons/fa6";
 import './Table.css';
 // import { getAllTenders } from '../../../Redux/Action/Dashboard';
 
 const TableView = () => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false)
+  const [depart, setDepart] = useState('')
+  const [show2, setShow2] = useState(false)
 
   const { loading, allTendersData } = useSelector((state) => state.TendersAllData)
 
@@ -31,6 +34,38 @@ const TableView = () => {
 
   }
 
+  const createHandler = () => {
+    setShow2(false)
+  }
+
+  const modal2 = <Modal centered className='doc_type' show={show2}>
+    <Modal.Body>
+      <div className='add_doc_type' style={{ transition: "all 0.3s ease" }}>
+        <div className='head'>
+          <h5>Add Department</h5>
+          <MdOutlineClose onClick={() => setShow2(false)} />
+        </div>
+        <Form>
+          <Row>
+            <Col md={12}>
+              <Form.Group className="mb-3">
+                <Form.Label>Department <span>*</span> </Form.Label>
+                <Form.Control type='text' placeholder='Enter Department Name' />
+              </Form.Group>
+            </Col>
+            <Col md={12}>
+              <div className='next_btn'>
+                <button type='button' onClick={createHandler}>
+                  Create
+                </button>
+              </div>
+            </Col>
+          </Row>
+        </Form>
+      </div>
+    </Modal.Body>
+  </Modal>
+
   const modal = <Modal centered className='doc_type' show={show}>
     <Modal.Body>
       <div className='add_doc_type' style={{ transition: "all 0.3s ease" }}>
@@ -38,19 +73,20 @@ const TableView = () => {
           <h5>Select Department</h5>
           <MdOutlineClose onClick={() => setShow(false)} />
         </div>
-        <Form>
+        <Form >
           <Row>
             <Col md={12}>
               <Form.Group className="mb-3">
-                <Form.Label>Department <span>*</span></Form.Label>
+                <Form.Label>Department <span>*</span> <FaPlus onClick={() => setShow2(true)} /> </Form.Label>
                 <Select
                   // isLoading={departmentLoading} options={departOptions} onChange={(e) => setAddDepart(e.value)}
+                  onChange={(e) => setDepart(e.value)}
                   placeholder="Select Department" styles={dashboardColorStyles} />
               </Form.Group>
             </Col>
             <Col md={12}>
               <div className='next_btn'>
-                <button onClick={selectedHandler}
+                <button type='button' onClick={selectedHandler}
                 // disabled={loading}
                 >
                   {/* {loading ? <Spinner animation='border' size='sm' /> : "Submit"} */}
@@ -64,6 +100,7 @@ const TableView = () => {
     </Modal.Body>
   </Modal>
 
+
   const selectTender = () => {
     setShow(true)
   }
@@ -71,6 +108,7 @@ const TableView = () => {
   return (
     <div className='table_main'>
       {modal}
+      {modal2}
 
       <div className='application_main'>
         <h1>All Tenders</h1>
