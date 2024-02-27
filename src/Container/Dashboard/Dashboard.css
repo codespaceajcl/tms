@@ -203,7 +203,7 @@
 
 .dashboard_right_box{
     /* border: 1px solid lightgray; */
-    padding: 20px;
+    /* padding: 20px; */
     border-radius: 16px;
     background-color: #fff;
     margin-top: 30px;
@@ -245,17 +245,24 @@
     margin-bottom: 0;
     font-size: 18px;
     font-weight: 700;
-    color: #003a70;
+    color: #fff;
     border-bottom: 1px solid #d3d3d399;
-    padding-bottom: 10px;
+    background-color: #003a70;
+    padding: 10px 20px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
 }
 
 .dashboard_right_box div{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
+    padding: 10px 20px;
     border-bottom: 1px solid lightgrey;
+}
+
+.dashboard_right_box div:last-child{
+    border-bottom: none;
 }
 
 .dashboard_right_box div h6, .dashboard_right_box div p{

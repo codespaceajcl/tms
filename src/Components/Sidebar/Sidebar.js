@@ -34,14 +34,14 @@ const Sidebar = ({ dashboardSidebar }) => {
                             <li key={s.title} className={pathname.split('/')[2] === s.path.split("/")[2] ? 'side_active' : ''}
                                 onClick={s.path.length > 0 ? () => navigate(s.path) : () => setShow(true)}>
                                 {s.icon}
-                                {s.title}
+                                <span>{s.title}</span>
                             </li>
                         )
                     })
                 }
                 <li onClick={() => setShow(true)}>
                     <RiLogoutCircleRLine />
-                    Logout
+                    <span>Logout</span>
                 </li>
             </ul>
         </div>
