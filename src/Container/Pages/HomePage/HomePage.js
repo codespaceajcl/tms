@@ -32,12 +32,13 @@ const HomePage = () => {
 
     useEffect(() => {
         const redirectTimer = setTimeout(() => {
-            if (email && access) {
-                navigate('/dashboard');
-            }
-            else {
-                errorNotify("Access Denied")
-            }
+            navigate('/dashboard');
+            // if (email && access) {
+            //     navigate('/dashboard');
+            // }
+            // else {
+            //     errorNotify("Access Denied")
+            // }
         }, 3000);
 
         return () => clearTimeout(redirectTimer);
