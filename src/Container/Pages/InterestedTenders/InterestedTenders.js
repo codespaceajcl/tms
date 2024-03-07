@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Form, Modal, Row } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { dashboardColorStyles, login } from '../../../Utils/Helper';
 // import { getAllDepartmentDocs, getDepartments } from '../../../Redux/Action/Dashboard';
@@ -29,7 +29,7 @@ const InterestedTenders = () => {
     }, [])
 
     // const { loading, departDocData } = useSelector((state) => state.AlldepartDocs)
-    const { loading: departmentLoading, departmentsData } = useSelector((state) => state.departmentGet)
+    const { loading: departmentLoading, departmentsData } = useSelector((state) => state.departmentsGet)
 
     const proceedHandler = (department) => {
         setShow(true)
@@ -178,5 +178,4 @@ const InterestedTenders = () => {
         </div>
     )
 }
-
-export default InterestedTenders
+export default InterestedTenders;

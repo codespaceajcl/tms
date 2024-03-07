@@ -31,7 +31,7 @@ const Documents = () => {
     }, [])
 
     // const { loading, departDocData } = useSelector((state) => state.AlldepartDocs)
-    const { loading: departmentLoading, departmentsData } = useSelector((state) => state.departmentGet)
+    const { loading: departmentLoading, departmentsData } = useSelector((state) => state.departmentsGet)
 
     const proceedHandler = (department) => {
         setShow(true)

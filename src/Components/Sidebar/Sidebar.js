@@ -23,7 +23,6 @@ const Sidebar = ({ dashboardSidebar }) => {
         </Modal.Body>
     </Modal>
 
-
     return (
         <div className='sidebar_main'>
             {modal}
@@ -47,5 +46,4 @@ const Sidebar = ({ dashboardSidebar }) => {
         </div>
     )
 }
-
-export default Sidebar
+export default Sidebar;

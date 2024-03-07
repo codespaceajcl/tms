@@ -6,9 +6,8 @@ import { login } from '../../Utils/Helper';
 import Loader from '../../Utils/Loader';
 import { MdOutlineFileDownload } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
-import { IoDocument } from "react-icons/io5";
+import { IoDocument, IoDocumentLock } from "react-icons/io5";
 import { HiClipboardDocumentCheck } from "react-icons/hi2";
-import { IoDocumentLock } from "react-icons/io5";
 import './Dashboard.css';
 
 const Dashboard = () => {

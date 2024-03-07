@@ -29,9 +29,7 @@ const TableView = () => {
     }
   }, [])
 
-
   const selectedHandler = () => {
-
   }
 
   const createHandler = () => {
@@ -99,7 +97,6 @@ const TableView = () => {
       </div>
     </Modal.Body>
   </Modal>
-
 
   const selectTender = () => {
     setShow(true)

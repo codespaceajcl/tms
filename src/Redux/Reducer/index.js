@@ -1,19 +1,26 @@
 import { combineReducers } from "redux";
 import {
-    createDocumentReducer, dashboardGetReducer, getAllDepartmentDocsReducer, getDepartAndDocTypeReducer, getDepartmentsReducer,
-    getDocTypesReducer, getSearchDocumentReducer, registerDocumentTypeReducer, getAllTendersReducer
+    getDepartmentsReducer, dashboardGetReducer, getAllTendersReducer, addDepartmentReducer, selectDepartmentReducer,
+    getAssignedTendersReducer, assignedTenderSelectReducer, getInterestedTendersReducer, interestedTenderDocumentsReducer,
+    getAppliedTendersReducer, appliedTenderDocumentReducer, getTendersResultsReducer, tendersResultsWinReducer
 } from "./Dashboard";
 
 const rootReducer = combineReducers({
     getDashboard: dashboardGetReducer,
-    departmentGet: getDepartmentsReducer,
-    docTypesGet: getDocTypesReducer,
-    searchDocumentData: getSearchDocumentReducer,
-    docTypeRegister: registerDocumentTypeReducer,
-    documentCreate: createDocumentReducer,
-    departandType: getDepartAndDocTypeReducer,
-    AlldepartDocs: getAllDepartmentDocsReducer,
-    TendersAllData: getAllTendersReducer
+    TendersAllData: getAllTendersReducer,
+    departmentsGet: getDepartmentsReducer,
+    departmentAdd: addDepartmentReducer,
+    departmentSelect: selectDepartmentReducer,
+    assignedTendersGet: getAssignedTendersReducer,
+    selectAssignedTenders: assignedTenderSelectReducer,
+    interestedTendersGet: getInterestedTendersReducer,
+    documentInterestedTender: interestedTenderDocumentsReducer,
+    appliedTendersData: getAppliedTendersReducer,
+    appliedTenderDocumentData: appliedTenderDocumentReducer,
+    getTendersResultsData: getTendersResultsReducer,
+    tendersResultsWinData: tendersResultsWinReducer,
+
+
 })
 
 export default rootReducer;
