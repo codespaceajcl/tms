@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { getDepartments, getSearchDocument } from '../../../Redux/Action/Dashboard';
-import Loader from '../../../Utils/Loader';
+// import Loader from '../../../Utils/Loader';
 import { TableStyles, dashboardColorStyles, login } from '../../../Utils/Helper';
 import { Col, Form, Modal, Row, Spinner, Table } from 'react-bootstrap';
 import { errorNotify } from '../../../Utils/Toast';
@@ -28,8 +28,7 @@ const AssignedTenders = () => {
         }
     }, [])
 
-    const { loading: searchLoading, getSearchData } = useSelector((state) => state.searchDocumentData)
-    const { loading: departmentLoading, departmentsData } = useSelector((state) => state.departmentGet)
+    const { loading: departmentLoading, departmentsData } = useSelector((state) => state.departmentsGet)
 
     const departOption = departmentsData?.response?.map((d) => {
         return {
@@ -90,77 +89,79 @@ const AssignedTenders = () => {
                         </Form.Group>
                     </Col>
                     <Col md={3}>
-                        <button className='search_btn' onClick={searchDepartmentHandler} disabled={searchLoading}>
-                            {searchLoading ? <Spinner animation='border' size='sm' /> : 'Search'} </button>
+                        <button className='search_btn' onClick={searchDepartmentHandler}>
+                            {/* {searchLoading ? <Spinner animation='border' size='sm' /> : 'Search'} */}
+                            Search
+                        </button>
                     </Col>
                 </Row>
-                {
-                    searchLoading ? <div className='py-3'>
+                {/* { */}
+                {/* searchLoading ? <div className='py-3'>
                         <Loader />
-                    </div> :
-                        <div className='application_table assigned_tenders'>
-                            <Table responsive>
-                                <thead>
-                                    <tr>
-                                        <th>S No.</th>
-                                        <th>Tender No.</th>
-                                        <th>Uploaded By</th>
-                                        <th>Uploaded Date</th>
-                                        <th>Due Date</th>
-                                        <th>Uploaded Time</th>
-                                        <th>Download</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>4321</td>
-                                        <td>Test</td>
-                                        <td>12-02-2024</td>
-                                        <td>12:00 PM</td>
-                                        <td> <span className='show_yellow'>5-03-2024</span> </td>
-                                        <td> <a style={{ paddingLeft: "25px" }}> <MdOutlineFileDownload /> </a> </td>
-                                        <td>
-                                            <span>
-                                                <Select placeholder="Select Actions" options={options} styles={TableStyles} />
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>4321</td>
-                                        <td>Test</td>
-                                        <td>12-02-2024</td>
-                                        <td>12:00 PM</td>
-                                        <td><span className='show_red'>22-02-2024</span></td>
-                                        <td> <a style={{ paddingLeft: "25px" }}><MdOutlineFileDownload /></a> </td>
-                                        <td>
-                                            <span>
-                                                <Select placeholder="Select Actions" options={options} styles={TableStyles} />
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>4321</td>
-                                        <td>Test</td>
-                                        <td>12-02-2024</td>
-                                        <td>12:00 PM</td>
-                                        <td><span className='show_green'>25-03-2024</span></td>
-                                        <td> <a style={{ paddingLeft: "25px" }}><MdOutlineFileDownload /></a> </td>
-                                        <td>
-                                            <span>
-                                                <Select placeholder="Select Actions" options={options} styles={TableStyles} />
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </Table>
-                            {/* {getSearchData?.response?.length === 0 && <p className='text-center' style={{ fontWeight: "600" }}>No Data Found</p>} */}
-                            {/* {!getSearchData && <p className='text-center' style={{ fontWeight: "600" }}>Please Search Tender By Departments</p>} */}
-                        </div>
-                }
+                    </div> : */}
+                <div className='application_table assigned_tenders'>
+                    <Table responsive>
+                        <thead>
+                            <tr>
+                                <th>S No.</th>
+                                <th>Tender No.</th>
+                                <th>Uploaded By</th>
+                                <th>Uploaded Date</th>
+                                <th>Due Date</th>
+                                <th>Uploaded Time</th>
+                                <th>Download</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>4321</td>
+                                <td>Test</td>
+                                <td>12-02-2024</td>
+                                <td>12:00 PM</td>
+                                <td> <span className='show_yellow'>5-03-2024</span> </td>
+                                <td> <a style={{ paddingLeft: "25px" }}> <MdOutlineFileDownload /> </a> </td>
+                                <td>
+                                    <span>
+                                        <Select placeholder="Select Actions" options={options} styles={TableStyles} />
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>4321</td>
+                                <td>Test</td>
+                                <td>12-02-2024</td>
+                                <td>12:00 PM</td>
+                                <td><span className='show_red'>22-02-2024</span></td>
+                                <td> <a style={{ paddingLeft: "25px" }}><MdOutlineFileDownload /></a> </td>
+                                <td>
+                                    <span>
+                                        <Select placeholder="Select Actions" options={options} styles={TableStyles} />
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>4321</td>
+                                <td>Test</td>
+                                <td>12-02-2024</td>
+                                <td>12:00 PM</td>
+                                <td><span className='show_green'>25-03-2024</span></td>
+                                <td> <a style={{ paddingLeft: "25px" }}><MdOutlineFileDownload /></a> </td>
+                                <td>
+                                    <span>
+                                        <Select placeholder="Select Actions" options={options} styles={TableStyles} />
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                    {/* {getSearchData?.response?.length === 0 && <p className='text-center' style={{ fontWeight: "600" }}>No Data Found</p>} */}
+                    {/* {!getSearchData && <p className='text-center' style={{ fontWeight: "600" }}>Please Search Tender By Departments</p>} */}
+                </div>
+                {/* } */}
             </div>
         </div>
     )

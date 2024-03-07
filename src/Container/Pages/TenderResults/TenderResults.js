@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { getDepartments, getSearchDocument } from '../../../Redux/Action/Dashboard';
-import Loader from '../../../Utils/Loader';
+// import Loader from '../../../Utils/Loader';
 import { dashboardColorStyles, login } from '../../../Utils/Helper';
 import { Col, Form, Modal, Row, Spinner, Table } from 'react-bootstrap';
 import { errorNotify } from '../../../Utils/Toast';
@@ -66,8 +66,8 @@ const TenderResults = () => {
         }
     };
 
-    const { loading: searchLoading, getSearchData } = useSelector((state) => state.searchDocumentData)
-    const { loading: departmentLoading, departmentsData } = useSelector((state) => state.departmentGet)
+    // const { loading: searchLoading, getSearchData } = useSelector((state) => state.searchDocumentData)
+    const { loading: departmentLoading, departmentsData } = useSelector((state) => state.departmentsGet)
 
     const departOption = departmentsData?.response?.map((d) => {
         return {
@@ -152,7 +152,16 @@ const TenderResults = () => {
     const loseHandler = (e) => {
         e.preventDefault();
 
-        console.log(comment)
+        const d = {
+            comment,
+            email: login.email,
+            token: login.token
+        }
+
+        const data = JSON.stringify(d)
+        console.log(data)
+
+        // dispatch()
 
         setLossShow(true)
         setShow2(false)
@@ -221,74 +230,74 @@ const TenderResults = () => {
                         </button>
                     </Col>
                 </Row>
-                {
-                    searchLoading ? <div className='py-3'> <Loader /></div> :
-                        <div className='application_table assigned_tenders'>
-                            <Table responsive>
-                                <thead>
-                                    <tr>
-                                        <th>S No.</th>
-                                        <th>Tender Name</th>
-                                        <th>Tender No.</th>
-                                        <th>Uploaded By</th>
-                                        <th>Uploaded Date</th>
-                                        <th>Due Date</th>
-                                        <th>Submitted Date</th>
-                                        <th> <span style={{ paddingLeft: "90px" }}> Action </span> </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Tender Test</td>
-                                        <td>4321</td>
-                                        <td>Test</td>
-                                        <td>12-02-2024</td>
-                                        <td>12:00 PM</td>
-                                        <td>5-03-2024</td>
-                                        <td>
-                                            <span>
-                                                <button className='selected_btn not_interested' onClick={() => setShow2(true)}>Loss <GoThumbsdown style={{ fontSize: "18px" }} /></button>
-                                                <button className='selected_btn interested' onClick={() => setShow(true)}>Win <GoThumbsup style={{ fontSize: "18px" }} /> </button>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Tender Test</td>
-                                        <td>4321</td>
-                                        <td>Test</td>
-                                        <td>12-02-2024</td>
-                                        <td>12:00 PM</td>
-                                        <td>22-02-2024</td>
-                                        <td>
-                                            <span>
-                                                <button className='selected_btn not_interested' onClick={() => setShow2(true)}>Loss <GoThumbsdown style={{ fontSize: "18px" }} /></button>
-                                                <button className='selected_btn interested' onClick={() => setShow(true)}>Win <GoThumbsup style={{ fontSize: "18px" }} /> </button>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Tender Test</td>
-                                        <td>4321</td>
-                                        <td>Test</td>
-                                        <td>12-02-2024</td>
-                                        <td>12:00 PM</td>
-                                        <td>25-03-2024</td>
-                                        <td>
-                                            <span>
-                                                <button className='selected_btn not_interested' onClick={() => setShow2(true)}>Loss <GoThumbsdown style={{ fontSize: "18px" }} /></button>
-                                                <button className='selected_btn interested' onClick={() => setShow(true)}>Win <GoThumbsup style={{ fontSize: "18px" }} /> </button>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </Table>
-                            {/* {getSearchData?.response?.length === 0 && <p className='text-center' style={{ fontWeight: "600" }}>No Data Found</p>} */}
-                            {/* {!getSearchData && <p className='text-center' style={{ fontWeight: "600" }}>Please Search Tender By Departments</p>} */}
-                        </div>
-                }
+                {/* { */}
+                {/* searchLoading ? <div className='py-3'> <Loader /></div> : */}
+                <div className='application_table assigned_tenders'>
+                    <Table responsive>
+                        <thead>
+                            <tr>
+                                <th>S No.</th>
+                                <th>Tender Name</th>
+                                <th>Tender No.</th>
+                                <th>Uploaded By</th>
+                                <th>Uploaded Date</th>
+                                <th>Due Date</th>
+                                <th>Submitted Date</th>
+                                <th> <span style={{ paddingLeft: "90px" }}> Action </span> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Tender Test</td>
+                                <td>4321</td>
+                                <td>Test</td>
+                                <td>12-02-2024</td>
+                                <td>12:00 PM</td>
+                                <td>5-03-2024</td>
+                                <td>
+                                    <span>
+                                        <button className='selected_btn not_interested' onClick={() => setShow2(true)}>Loss <GoThumbsdown style={{ fontSize: "18px" }} /></button>
+                                        <button className='selected_btn interested' onClick={() => setShow(true)}>Win <GoThumbsup style={{ fontSize: "18px" }} /> </button>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Tender Test</td>
+                                <td>4321</td>
+                                <td>Test</td>
+                                <td>12-02-2024</td>
+                                <td>12:00 PM</td>
+                                <td>22-02-2024</td>
+                                <td>
+                                    <span>
+                                        <button className='selected_btn not_interested' onClick={() => setShow2(true)}>Loss <GoThumbsdown style={{ fontSize: "18px" }} /></button>
+                                        <button className='selected_btn interested' onClick={() => setShow(true)}>Win <GoThumbsup style={{ fontSize: "18px" }} /> </button>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Tender Test</td>
+                                <td>4321</td>
+                                <td>Test</td>
+                                <td>12-02-2024</td>
+                                <td>12:00 PM</td>
+                                <td>25-03-2024</td>
+                                <td>
+                                    <span>
+                                        <button className='selected_btn not_interested' onClick={() => setShow2(true)}>Loss <GoThumbsdown style={{ fontSize: "18px" }} /></button>
+                                        <button className='selected_btn interested' onClick={() => setShow(true)}>Win <GoThumbsup style={{ fontSize: "18px" }} /> </button>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                    {/* {getSearchData?.response?.length === 0 && <p className='text-center' style={{ fontWeight: "600" }}>No Data Found</p>} */}
+                    {/* {!getSearchData && <p className='text-center' style={{ fontWeight: "600" }}>Please Search Tender By Departments</p>} */}
+                </div>
+                {/* } */}
             </div>
         </div>
     )

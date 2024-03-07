@@ -14,28 +14,23 @@ const MasterAdminLayout = () => {
     }
 
     return (
-        <div>
-            {
-                <>
-                    <Header />
-                    <div className={sidebarClose ? "dashboard_div close_leftsider" : "dashboard_div"}>
-                        <div className="left_dashboard">
-                            <div className="close_sidebar">
-                                {
-                                    !sidebarClose ?
-                                        <IoMdCloseCircleOutline onClick={closeHandler} /> :
-                                        <GiHamburgerMenu onClick={closeHandler} />
-                                }
-                            </div>
-                            <Sidebar dashboardSidebar={dashboardSidebar} />
-                        </div>
-                        <div className="right_dashboard">
-                            <Outlet />
-                        </div>
+        <>
+            <Header />
+            <div className={sidebarClose ? "dashboard_div close_leftsider" : "dashboard_div"}>
+                <div className="left_dashboard">
+                    <div className="close_sidebar">
+                        {
+                            !sidebarClose ? <IoMdCloseCircleOutline onClick={closeHandler} /> :
+                                <GiHamburgerMenu onClick={closeHandler} />
+                        }
                     </div>
-                </>
-            }
-        </div>
+                    <Sidebar dashboardSidebar={dashboardSidebar} />
+                </div>
+                <div className="right_dashboard">
+                    <Outlet />
+                </div>
+            </div>
+        </>
     );
 };
 export default MasterAdminLayout;

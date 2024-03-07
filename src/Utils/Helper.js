@@ -3,7 +3,6 @@ import { MdOutlineShareLocation, MdOutlineGridView } from "react-icons/md";
 import { IoDocument } from "react-icons/io5";
 import { HiClipboardDocumentCheck } from "react-icons/hi2";
 
-
 const getEmail = localStorage.getItem("email")
 const Token = localStorage.getItem("token")
 
@@ -37,7 +36,6 @@ export const dashboardColorStyles = {
     ),
     option: (provided, state) => ({
         ...provided,
-        // color: state.isSelected ? 'white' : 'black',
         cursor: "pointer",
         color: state.data.value === 'interested' ? 'green' : state.data.value === 'not-interested' ? 'red' : '#000',
         backgroundColor: state.isSelected ? '#F5F9FC' : '#fff',
