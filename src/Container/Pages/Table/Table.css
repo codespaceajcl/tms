@@ -7,6 +7,13 @@
     position: relative;
 }
 
+.no_data_dound {
+    text-align: center;
+    font-size: 25px;
+    margin-top: 35px;
+    font-weight: 700;
+}
+
 .table_main .application_main h1 {
     font-size: 22px;
     font-weight: 600;
@@ -31,11 +38,21 @@
     font-size: 19px;
 }
 
+.form_field .multiSelectContainer {
+    min-width: 350px !important;
+    font-size: 14px !important;
+    cursor: pointer !important;
+}
+
 .application_main .search_tables {
     display: flex;
     align-items: center;
     gap: 20px;
     flex-wrap: wrap;
+}
+
+.application_table.assigned_tenders .table-responsive{
+    min-height: 70vh;
 }
 
 .application_main .search_tables .searching,
@@ -222,12 +239,23 @@
 .search_btn {
     border: none;
     padding: 8px;
-    width: 100%;
     background-color: #003a70;
     color: #fff;
     font-weight: 600;
     border-radius: 7px;
     font-size: 14px;
+    padding: 8px 40px;
+}
+
+.search_btn:disabled {
+    background-color: #003a7082;
+}
+
+.companies_dropdown_wrapper {
+    display: flex;
+    align-items: end;
+    gap: 10px;
+    margin: 10px 10px 20px 10px;
 }
 
 .pagination {
@@ -439,6 +467,20 @@
 
 .application_attachment .modal_print .row .col-md-6:last-child button {
     background-color: #da3030;
+}
+
+.backHandler {
+    text-align: end;
+    margin: 10px;
+}
+
+.backHandler button {
+    background-color: #26537e;
+    color: #fff;
+    border: none;
+    padding: 5px 25px;
+    font-weight: 500;
+    border-radius: 8px;
 }
 
 @media (max-width: 550px) {

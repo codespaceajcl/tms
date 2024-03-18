@@ -3,6 +3,8 @@
     padding: 20px;
     border-radius: 10px;
     background-color: #a1bfc914;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    height: 100%;
 }
 
 .interested_tender_box button {
@@ -20,7 +22,7 @@
 .interested_tender_box p {
     border-bottom: 1px solid #d3d3d396;
     padding-bottom: 6px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .interested_tender_box p span {

@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 // import { useDispatch } from 'react-redux';
 import { errorNotify } from '../../../Utils/Toast';
 import './HomePage.css';
+import { saveEmailAndLogin } from '../../../Redux/Action/persistEmail';
 
 const HomePage = () => {
     const navigate = useNavigate();
@@ -18,27 +19,20 @@ const HomePage = () => {
         if (email && access) {
             localStorage.setItem("email", email)
             localStorage.setItem("token", access)
+
+            // dispatch(saveEmailAndLogin(email, access));
         }
     }, [email & access])
 
-    // useEffect(() => {
-
-    //     const formData = new FormData()
-    //     formData.append("email", email)
-    //     formData.append("token", access)
-
-    //     dispatch(getCurrentUserProfile(formData))
-    // }, [])
-
     useEffect(() => {
         const redirectTimer = setTimeout(() => {
-            navigate('/dashboard');
-            // if (email && access) {
-            //     navigate('/dashboard');
-            // }
-            // else {
-            //     errorNotify("Access Denied")
-            // }
+            // navigate('/dashboard');
+            if (email && access) {
+                navigate('/dashboard');
+            }
+            else {
+                errorNotify("Access Denied")
+            }
         }, 3000);
 
         return () => clearTimeout(redirectTimer);

@@ -24,6 +24,70 @@ export const dashboardGetReducer = (state = {}, action) => {
     }
 }
 
+// ALL TENDER COMPANIES GET
+export const getAllTendersCompaniesReducer = (state = {}, action) => {
+    switch (action.type) {
+        case "GET_ALL_TENDERS_COMPANIES_REQUEST":
+            return {
+                ...state,
+                loading: true,
+            };
+        case "GET_ALL_TENDERS_COMPANIES_SUCCESS":
+            return {
+                ...state,
+                loading: false,
+                allTendersCompaniesData: action.payload,
+            };
+        case "GET_ALL_TENDERS_COMPANIES_FAILED":
+            return {
+                ...state,
+                loading: false,
+                allTendersCompaniesData: null,
+                error: action.payload,
+            };
+        case "GET_ALL_TENDERS_COMPANIES_RESET":
+            return {
+                ...state,
+                allTendersCompaniesData: null,
+                error: null
+            };
+        default:
+            return state;
+    }
+}
+
+// INTERESTED COMPANIES
+export const getIntrestedTenderCompaniesReducer = (state = {}, action) => {
+    switch (action.type) {
+        case "GET_INTERESTED_TENDERS_COMPANIES_REQUEST":
+            return {
+                ...state,
+                loading: true,
+            };
+        case "GET_INTERESTED_TENDERS_COMPANIES_SUCCESS":
+            return {
+                ...state,
+                loading: false,
+                tendersCompaniesData: action.payload,
+            };
+        case "GET_INTERESTED_TENDERS_COMPANIES_FAILED":
+            return {
+                ...state,
+                loading: false,
+                tendersCompaniesData: null,
+                error: action.payload,
+            };
+        case "GET_INTERESTED_TENDERS_COMPANIES_RESET":
+            return {
+                ...state,
+                tendersCompaniesData: null,
+                error: null
+            };
+        default:
+            return state;
+    }
+}
+
 // ALL TENDERS GET
 export const getAllTendersReducer = (state = {}, action) => {
     switch (action.type) {
@@ -49,6 +113,38 @@ export const getAllTendersReducer = (state = {}, action) => {
             return {
                 ...state,
                 allTendersData: null,
+                error: null
+            };
+        default:
+            return state;
+    }
+}
+
+// USER INTERESTED COMPANIES
+export const userCompaniesFilterReducer = (state = {}, action) => {
+    switch (action.type) {
+        case "SAVE_USER_INTERESTED_COMPANIES_REQUEST":
+            return {
+                ...state,
+                loading: true,
+            };
+        case "SAVE_USER_INTERESTED_COMPANIES_SUCCESS":
+            return {
+                ...state,
+                loading: false,
+                interestedCompaniesData: action.payload,
+            };
+        case "SAVE_USER_INTERESTED_COMPANIES_FAILED":
+            return {
+                ...state,
+                loading: false,
+                interestedCompaniesData: null,
+                error: action.payload,
+            };
+        case "SAVE_USER_INTERESTED_COMPANIES_RESET":
+            return {
+                ...state,
+                interestedCompaniesData: null,
                 error: null
             };
         default:
@@ -152,6 +248,38 @@ export const selectDepartmentReducer = (state = {}, action) => {
     }
 }
 
+// SELECTED TOTAL DEPARTMENTAL
+export const selectedTotalDepartmentsReducer = (state = {}, action) => {
+    switch (action.type) {
+        case "SELECTED_TOTAL_DEPARTMENT_REQUEST":
+            return {
+                ...state,
+                loading: true,
+            };
+        case "SELECTED_TOTAL_DEPARTMENT_SUCCESS":
+            return {
+                ...state,
+                loading: false,
+                getTotalDepartments: action.payload,
+            };
+        case "SELECTED_TOTAL_DEPARTMENT_FAILED":
+            return {
+                ...state,
+                loading: false,
+                getTotalDepartments: null,
+                error: action.payload,
+            };
+        case "SELECTED_TOTAL_DEPARTMENT_RESET":
+            return {
+                ...state,
+                getTotalDepartments: null,
+                error: null
+            };
+        default:
+            return state;
+    }
+}
+
 // ALL ASSIGNED TENDERS 
 export const getAssignedTendersReducer = (state = {}, action) => {
     switch (action.type) {
@@ -185,27 +313,27 @@ export const getAssignedTendersReducer = (state = {}, action) => {
 }
 
 // ASSIGNED TENDERS SELECT
-export const assignedTenderSelectReducer = (state = {}, action) => {
+export const assignedTenderStatusReducer = (state = {}, action) => {
     switch (action.type) {
-        case "ASSIGNED_TENDER_SELECT_REQUEST":
+        case "ASSIGNED_TENDER_STATUS_REQUEST":
             return {
                 ...state,
                 loading: true,
             };
-        case "ASSIGNED_TENDER_SELECT_SUCCESS":
+        case "ASSIGNED_TENDER_STATUS_SUCCESS":
             return {
                 ...state,
                 loading: false,
                 assignedTenderSelectData: action.payload,
             };
-        case "ASSIGNED_TENDER_SELECT_FAILED":
+        case "ASSIGNED_TENDER_STATUS_FAILED":
             return {
                 ...state,
                 loading: false,
                 assignedTenderSelectData: null,
                 error: action.payload,
             };
-        case "ASSIGNED_TENDER_SELECT_RESET":
+        case "ASSIGNED_TENDER_STATUS_RESET":
             return {
                 ...state,
                 assignedTenderSelectData: null,
@@ -292,25 +420,27 @@ export const getAppliedTendersReducer = (state = {}, action) => {
             return {
                 ...state,
                 loading: false,
-                appliedTendersData: action.payload,
+                getAppliedTendersData: action.payload,
             };
         case "GET_APPLIED_TENDERS_FAILED":
             return {
                 ...state,
                 loading: false,
-                appliedTendersData: null,
+                getAppliedTendersData: null,
                 error: action.payload,
             };
         case "GET_APPLIED_TENDERS_RESET":
             return {
                 ...state,
-                appliedTendersData: null,
+                getAppliedTendersData: null,
                 error: null
             };
         default:
             return state;
     }
 }
+
+
 
 // APPLIED TENDER DOCUMENT
 export const appliedTenderDocumentReducer = (state = {}, action) => {

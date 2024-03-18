@@ -195,7 +195,6 @@ const TenderResults = () => {
 
     const modal2 = <Modal centered show={lossShow} onHide={() => setLossShow(false)}>
         <Modal.Body>
-
             <div className='win_modal'>
                 <Lottie options={LossOptions}
                     height={170}

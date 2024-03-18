@@ -1,4 +1,11 @@
 import axios from "axios";
+import { login } from "../../Utils/Helper";
+
+const config = {
+    headers: {
+        Authorization: `Bearer ${login.token}`
+    }
+};
 
 // DASHBOARD
 export const dashboardGet = (formData) => async (dispatch) => {
@@ -24,6 +31,54 @@ export const dashboardGet = (formData) => async (dispatch) => {
     }
 };
 
+// ALL TENDER COMPANIES GET
+export const getAllTendersCompanies = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: "GET_ALL_TENDERS_COMPANIES_REQUEST",
+        });
+
+        const { data } = await axios.get("tms/getActiveTendersCompany/", config);
+
+        dispatch({
+            type: "GET_ALL_TENDERS_COMPANIES_SUCCESS",
+            payload: data,
+            success: true,
+        });
+
+    } catch (e) {
+        dispatch({
+            type: "GET_ALL_TENDERS_COMPANIES_FAILED",
+            payload: e?.response?.data?.message,
+            success: false,
+        });
+    }
+};
+
+// INTERESTED COMPANIES
+export const getIntrestedTenderCompanies = (formData) => async (dispatch) => {
+    try {
+        dispatch({
+            type: "GET_INTERESTED_TENDERS_COMPANIES_REQUEST",
+        });
+
+        const { data } = await axios.post("tms/getTotalCompanyTenders/", formData, config);
+
+        dispatch({
+            type: "GET_INTERESTED_TENDERS_COMPANIES_SUCCESS",
+            payload: data,
+            success: true,
+        });
+
+    } catch (e) {
+        dispatch({
+            type: "GET_INTERESTED_TENDERS_COMPANIES_FAILED",
+            payload: e?.response?.data?.message,
+            success: false,
+        });
+    }
+};
+
 // ALL TENDERS GET
 export const getAllTenders = (formData) => async (dispatch) => {
     try {
@@ -31,7 +86,7 @@ export const getAllTenders = (formData) => async (dispatch) => {
             type: "GET_ALL_TENDERS_REQUEST",
         });
 
-        const { data } = await axios.post("docuware/getAllTenders/", formData);
+        const { data } = await axios.post("tms/getCompanyTenders/", formData, config);
 
         dispatch({
             type: "GET_ALL_TENDERS_SUCCESS",
@@ -48,14 +103,38 @@ export const getAllTenders = (formData) => async (dispatch) => {
     }
 };
 
-// GET TENDERS GET DEPARTMENTS
+// USER INTERESTED COMPANIES
+export const userCompaniesFilter = (formData) => async (dispatch) => {
+    try {
+        dispatch({
+            type: "SAVE_USER_INTERESTED_COMPANIES_REQUEST",
+        });
+
+        const { data } = await axios.post("tms/setUserCompanyFilter/", formData, config);
+
+        dispatch({
+            type: "SAVE_USER_INTERESTED_COMPANIES_SUCCESS",
+            payload: data,
+            success: true,
+        });
+
+    } catch (e) {
+        dispatch({
+            type: "SAVE_USER_INTERESTED_COMPANIES_FAILED",
+            payload: e?.response?.data?.message,
+            success: false,
+        });
+    }
+};
+
+// GET DEPARTMENTS
 export const getDepartments = (formData) => async (dispatch) => {
     try {
         dispatch({
             type: "GET_DEPARTMENTS_REQUEST",
         });
 
-        const { data } = await axios.post("archival/getDepartments/", formData);
+        const { data } = await axios.post("tms/getDepartments/", formData, config);
 
         dispatch({
             type: "GET_DEPARTMENTS_SUCCESS",
@@ -72,14 +151,14 @@ export const getDepartments = (formData) => async (dispatch) => {
     }
 };
 
-// GET TENDERS ADD DEPARTMENT
+// ADD DEPARTMENT
 export const addDepartment = (formData) => async (dispatch) => {
     try {
         dispatch({
             type: "ADD_DEPARTMENT_REQUEST",
         });
 
-        const { data } = await axios.post("archival/addDepartment/", formData);
+        const { data } = await axios.post("tms/addDepartment/", formData, config);
 
         dispatch({
             type: "ADD_DEPARTMENT_SUCCESS",
@@ -96,14 +175,14 @@ export const addDepartment = (formData) => async (dispatch) => {
     }
 };
 
-// GET TENDERS SELECT DEPARTMENT
+// TENDERS SELECTED DEPARTMENT
 export const selectDepartment = (formData) => async (dispatch) => {
     try {
         dispatch({
             type: "SELECT_DEPARTMENT_REQUEST",
         });
 
-        const { data } = await axios.post("archival/selectDepartment/", formData);
+        const { data } = await axios.post("tms/selectTender/", formData, config);
 
         dispatch({
             type: "SELECT_DEPARTMENT_SUCCESS",
@@ -120,6 +199,30 @@ export const selectDepartment = (formData) => async (dispatch) => {
     }
 };
 
+// SELECTED TOTAL DEPARTMENTAL
+export const selectedTotalDepartments = (formData) => async (dispatch) => {
+    try {
+        dispatch({
+            type: "SELECTED_TOTAL_DEPARTMENT_REQUEST",
+        });
+
+        const { data } = await axios.post("tms/getTotalDepartmentTenders/", formData, config);
+
+        dispatch({
+            type: "SELECTED_TOTAL_DEPARTMENT_SUCCESS",
+            payload: data,
+            success: true,
+        });
+
+    } catch (e) {
+        dispatch({
+            type: "SELECTED_TOTAL_DEPARTMENT_FAILED",
+            payload: e?.response?.data?.message,
+            success: false,
+        });
+    }
+};
+
 // ALL ASSIGNED TENDERS 
 export const getAssignedTenders = (formData) => async (dispatch) => {
     try {
@@ -127,7 +230,7 @@ export const getAssignedTenders = (formData) => async (dispatch) => {
             type: "GET_ALL_ASSIGNED_TENDERS_REQUEST",
         });
 
-        const { data } = await axios.post("archival/selectDepartment/", formData);
+        const { data } = await axios.post("tms/getDepartmentTenders/", formData, config);
 
         dispatch({
             type: "GET_ALL_ASSIGNED_TENDERS_SUCCESS",
@@ -144,24 +247,24 @@ export const getAssignedTenders = (formData) => async (dispatch) => {
     }
 };
 
-// ASSIGNED TENDERS SELECT 
-export const assignedTenderSelect = (formData) => async (dispatch) => {
+// ASSIGNED TENDERS STATUS 
+export const assignedTenderStatus = (formData) => async (dispatch) => {
     try {
         dispatch({
-            type: "ASSIGNED_TENDER_SELECT_REQUEST",
+            type: "ASSIGNED_TENDER_STATUS_REQUEST",
         });
 
-        const { data } = await axios.post("archival/selectDepartment/", formData);
+        const { data } = await axios.post("tms/updateTenderStatus/", formData, config);
 
         dispatch({
-            type: "ASSIGNED_TENDER_SELECT_SUCCESS",
+            type: "ASSIGNED_TENDER_STATUS_SUCCESS",
             payload: data,
             success: true,
         });
 
     } catch (e) {
         dispatch({
-            type: "ASSIGNED_TENDER_SELECT_FAILED",
+            type: "ASSIGNED_TENDER_STATUS_FAILED",
             payload: e?.response?.data?.message,
             success: false,
         });
@@ -169,13 +272,13 @@ export const assignedTenderSelect = (formData) => async (dispatch) => {
 };
 
 // INTERESTED TENDERS GET 
-export const getInterestedTenders = (formData) => async (dispatch) => {
+export const getInterestedTenders = () => async (dispatch) => {
     try {
         dispatch({
             type: "INTERESTED_TENDERS_GET_REQUEST",
         });
 
-        const { data } = await axios.post("archival/selectDepartment/", formData);
+        const { data } = await axios.get("tms/getDepartmentInterestedTenders/", config);
 
         dispatch({
             type: "INTERESTED_TENDERS_GET_SUCCESS",
@@ -199,7 +302,7 @@ export const interestedTenderDocuments = (formData) => async (dispatch) => {
             type: "INTERESTED_TENDER_DOCUMENTS_REQUEST",
         });
 
-        const { data } = await axios.post("archival/selectDepartment/", formData);
+        const { data } = await axios.post("tms/proceedTenderForDocumentation/", formData, config);
 
         dispatch({
             type: "INTERESTED_TENDER_DOCUMENTS_SUCCESS",
@@ -217,13 +320,13 @@ export const interestedTenderDocuments = (formData) => async (dispatch) => {
 };
 
 // APPLIED TENDERS GET 
-export const getAppliedTenders = (formData) => async (dispatch) => {
+export const AppliedTendersGet = () => async (dispatch) => {
     try {
         dispatch({
             type: "GET_APPLIED_TENDERS_REQUEST",
         });
 
-        const { data } = await axios.post("archival/selectDepartment/", formData);
+        const { data } = await axios.get("tms/getAppliedTenders/", config);
 
         dispatch({
             type: "GET_APPLIED_TENDERS_SUCCESS",
@@ -239,6 +342,8 @@ export const getAppliedTenders = (formData) => async (dispatch) => {
         });
     }
 };
+
+
 
 // APPLIED TENDER DOCUMENT 
 export const appliedTenderDocument = (formData) => async (dispatch) => {
