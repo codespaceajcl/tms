@@ -1,36 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Form, Modal, Row, Spinner } from 'react-bootstrap';
-// import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { departmentStyles, login } from '../../../Utils/Helper';
-// import { getAllDepartmentDocs, getDepartments } from '../../../Redux/Action/Dashboard';
-import { MdOutlineClose } from "react-icons/md";
 import Select from "react-select";
-import { MdOutlineFileDownload } from "react-icons/md";
-import './InterestedTender.css';
-import { getInterestedTenders, interestedTenderDocuments } from '../../../Redux/Action/Dashboard';
+import { MdOutlineFileDownload, MdOutlineClose } from "react-icons/md";
+import { getInterestedTenders, interestedTenderDocuments, selectedTotalDepartments } from '../../../Redux/Action/Dashboard';
 import Loader from '../../../Utils/Loader';
 import { errorNotify, successNotify } from '../../../Utils/Toast';
+import './InterestedTender.css';
 
 const InterestedTenders = () => {
-    // const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    // const [department, setDepartment] = useState(null);
+    const [department, setDepartment] = useState(null);
     const [show, setShow] = useState(false)
     const [numDocs, setNumDocs] = useState(undefined);
     const [docDetails, setDocDetails] = useState([{ name: "", deadline: "" }]);
     const [numComment, setNumComment] = useState(undefined);
-    const [commentNames, setCommentNames] = useState({});
+    const [commentNames, setCommentNames] = useState([{ name: "" }]);
+    const [interestedTenders, setInterestedTenders] = useState([]);
     const [tenderId, setTenderId] = useState('')
 
-
     useEffect(() => {
-        const formData = new FormData();
-        formData.append("email", login.email)
-        formData.append("token", login.token)
-
-        // dispatch(getDepartments(formData))
+        dispatch(selectedTotalDepartments())
         dispatch(getInterestedTenders())
 
         return () => {
@@ -38,9 +30,15 @@ const InterestedTenders = () => {
         }
     }, [])
 
-    // const { loading: departmentLoading, departmentsData } = useSelector((state) => state.departmentsGet)
+    const { loading: departmentLoading, getTotalDepartments } = useSelector((state) => state.selectedTendersDepartments)
     const { loading, interestedTendersData } = useSelector((state) => state.interestedTendersGet)
     const { loading: interestedLoading, interestedTenderDocumentData } = useSelector((state) => state.documentInterestedTender)
+
+    useEffect(() => {
+        if (interestedTendersData?.response) {
+            setInterestedTenders(interestedTendersData?.response)
+        }
+    }, [interestedTendersData])
 
     useEffect(() => {
         if (interestedTenderDocumentData?.response) {
@@ -74,11 +72,11 @@ const InterestedTenders = () => {
         setShow(true)
     }
 
-    // const departOption = departmentsData?.response?.map((d) => {
-    //     return {
-    //         value: d?.id, label: d.name
-    //     }
-    // })
+    const departOption = Array.isArray(getTotalDepartments?.response) && getTotalDepartments?.response?.map((d) => {
+        return {
+            value: d?.department, label: d.department
+        }
+    })
 
     const handleNumOfDocumentsChange = (e) => {
         let value = parseInt(e.target.value);
@@ -108,11 +106,24 @@ const InterestedTenders = () => {
         let value = parseInt(e.target.value);
         value = Math.min(Math.max(value, 0), 10);
         setNumComment(value);
+
+        if (value <= 10) {
+            setCommentNames(prevDetails => {
+                const newDetails = [...prevDetails];
+                while (newDetails.length < value) {
+                    newDetails.push({ name: '' });
+                }
+                return newDetails.slice(0, value);
+            })
+        }
     }
 
-    const handleCommentInputChange = (i, e) => {
-        const { name, value } = e.target;
-        setCommentNames({ ...commentNames, [name]: value });
+    const handleCommentInputChange = (index, field, value) => {
+        setCommentNames(prevDetails => {
+            const newDetails = [...prevDetails];
+            newDetails[index][field] = value;
+            return newDetails;
+        });
     }
 
     const hasEmptyValue = (arr) => {
@@ -122,13 +133,16 @@ const InterestedTenders = () => {
     const submitDocsHandler = () => {
 
         let documentNames = [];
-        let documentDeadlines = []
-
-        let commenterNames = Object.values(commentNames)
+        let documentDeadlines = [];
+        let commenterNames = [];
 
         docDetails.map((d) => {
             documentNames.push(d.name);
             documentDeadlines.push(d.deadline)
+        })
+
+        commentNames.map((c) => {
+            commenterNames.push(c.name)
         })
 
         if (commenterNames.length === 0 || documentNames.length === 0 || documentDeadlines.length === 0) {
@@ -205,9 +219,8 @@ const InterestedTenders = () => {
                                         <Form.Group className="mb-3">
                                             <Form.Label>Comment {index + 1} <span>*</span> </Form.Label>
                                             <Form.Control type='text' placeholder={`Comment ${index + 1}`}
-                                                name={`comment${index + 1}`}
-                                                value={commentNames[`comment${index + 1}`] || ''}
-                                                onChange={(e) => handleCommentInputChange(index, e)}
+                                                value={commentNames[index].name}
+                                                onChange={(e) => handleCommentInputChange(index, 'name', e.target.value)}
                                             />
                                         </Form.Group>
                                     </Col>
@@ -226,16 +239,17 @@ const InterestedTenders = () => {
         </Modal.Body>
     </Modal>
 
+    const searchByDepartmentHandler = () => {
+        let filterTender = interestedTendersData?.response?.filter((t) => t.department === department)
+        setInterestedTenders(filterTender)
+    }
+
     return (
         <div className='dashboard_main' style={{ padding: "15px 10px" }}>
             {modal}
-            <Row>
-                <Col md={12}>
-                    <h1>Interested Tender Requests</h1>
-                </Col>
-            </Row>
+            <h1>Interested Tender Requests</h1>
 
-            {/* <Row className='m-3 align-items-end pb-3' style={{ borderBottom: "1px solid #8080804d" }}>
+            <Row className='align-items-end pb-3' style={{ borderBottom: "1px solid #8080804d" }}>
                 <Col md={3}>
                     <Form.Group className="form_field">
                         <Form.Label>Department <span>*</span> </Form.Label>
@@ -243,18 +257,16 @@ const InterestedTenders = () => {
                     </Form.Group>
                 </Col>
                 <Col md={3}>
-                    <button className='search_btn'>
-                        Search
-                    </button>
+                    <button className='search_btn' onClick={searchByDepartmentHandler}> Search </button>
                 </Col>
-            </Row> */}
+            </Row>
 
             <div className='mt-3 mx-3'>
                 {
                     loading ? <Loader /> :
                         <Row style={{ gap: "15px 0" }}>
                             {
-                                interestedTendersData?.response?.map((t) => {
+                                interestedTenders?.map((t) => {
                                     return (
                                         <Col md={12}>
                                             <div className='interested_tender_box'>
@@ -279,6 +291,7 @@ const InterestedTenders = () => {
                                     )
                                 })
                             }
+                            {interestedTenders?.length === 0 && <h5 style={{ fontWeight: "600" }} className='text-center my-3'>No Data Found</h5>}
                         </Row>
                 }
             </div>

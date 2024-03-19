@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../Utils/Loader';
-import { TableStyles, departmentStyles, login } from '../../../Utils/Helper';
+import { TableStyles, departmentStyles } from '../../../Utils/Helper';
 import { Col, Form, Modal, Row, Spinner, Table } from 'react-bootstrap';
 import { errorNotify, successNotify } from '../../../Utils/Toast';
 import Select from "react-select";
@@ -19,11 +19,7 @@ const AssignedTenders = () => {
     })
 
     useEffect(() => {
-        const formData = new FormData();
-        formData.append("email", login.email)
-        formData.append("token", login.token)
-
-        dispatch(selectedTotalDepartments(formData))
+        dispatch(selectedTotalDepartments())
 
         return () => {
             dispatch({ type: "GET_ALL_ASSIGNED_TENDERS_RESET" })
@@ -81,7 +77,7 @@ const AssignedTenders = () => {
                         </Col>
                         <Col md={12}>
                             <div className='next_btn'>
-                                <button onClick={() => setShow(false)}> No </button>
+                                <button type='button' onClick={() => setShow(false)}> No </button>
                                 <button type='button' onClick={proceedHandler} disabled={assignLoading}>
                                     {assignLoading ? <Spinner animation='border' size='sm' /> : "Yes, Proceed"} </button>
                             </div>
@@ -123,73 +119,71 @@ const AssignedTenders = () => {
     }
 
     return (
-        <div className='table_main'>
+        <div className='dashboard_main' style={{ padding: "15px 10px" }}>
             {modal}
-            <div className='application_main'>
-                <h1>Assigned Tenders</h1>
+            <h1>Assigned Tenders</h1>
 
-                <Row className='m-3 align-items-end'>
-                    <Col md={3}>
-                        <Form.Group className="form_field">
-                            <Form.Label>Department <span>*</span> </Form.Label>
-                            <Select isLoading={departmentLoading} onChange={(d) => setDepartment(d.value)} options={departOption} placeholder="Select Department" styles={departmentStyles} />
-                        </Form.Group>
-                    </Col>
-                    <Col md={3}>
-                        <button className='search_btn' onClick={searchDepartmentHandler}>
-                            {Loading ? <Spinner animation='border' size='sm' /> : 'Search'}
-                        </button>
-                    </Col>
-                </Row>
-                {
-                    Loading ? <div className='py-3'>
-                        <Loader />
-                    </div> :
-                        <div className='application_table assigned_tenders'>
-                            <Table responsive={!assignedTenderData || assignedTenderData?.response?.length === 0 ? false : true}>
-                                <thead>
-                                    <tr>
-                                        <th>S No.</th>
-                                        <th>Tender No.</th>
-                                        <th>Selected By</th>
-                                        <th>Company</th>
-                                        <th>Advertise Date</th>
-                                        <th>Due Date</th>
-                                        <th>Due Time</th>
-                                        <th>Download</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        Array.isArray(assignedTenderData?.response) && assignedTenderData?.response?.map((t, i) => {
-                                            return (
-                                                <tr>
-                                                    <td>{i + 1}</td>
-                                                    <td>{t.tenderNo}</td>
-                                                    <td>{t.selectedBy}</td>
-                                                    <td>{t.company}</td>
-                                                    <td>{t.advertiseDate}</td>
-                                                    <td> <span className={tenderDate(t.closingDate)}>{t.closingDate}</span> </td>
-                                                    <td>{t.closingTime}</td>
-                                                    <td> <a href={t.document} target='_blank' style={{ paddingLeft: "25px" }}> <MdOutlineFileDownload /> </a> </td>
-                                                    <td>
-                                                        <span>
-                                                            <Select placeholder="Select Actions" options={options}
-                                                                styles={TableStyles} onChange={(e) => selectHandler(e.value, t.id)} />
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            )
-                                        })
-                                    }
-                                </tbody>
-                            </Table>
-                            {assignedTenderData?.response?.length === 0 && <p className='text-center' style={{ fontWeight: "600" }}>No Data Found</p>}
-                            {!assignedTenderData && <p className='text-center' style={{ fontWeight: "600" }}>Please Search Tender By Department</p>}
-                        </div>
-                }
-            </div>
+            <Row className='align-items-end pb-3' style={{ borderBottom: "1px solid #8080804d" }}>
+                <Col md={3}>
+                    <Form.Group className="form_field">
+                        <Form.Label>Department <span>*</span> </Form.Label>
+                        <Select isLoading={departmentLoading} onChange={(d) => setDepartment(d.value)} options={departOption} placeholder="Select Department" styles={departmentStyles} />
+                    </Form.Group>
+                </Col>
+                <Col md={3}>
+                    <button className='search_btn' onClick={searchDepartmentHandler}>
+                        {Loading ? <Spinner animation='border' size='sm' /> : 'Search'}
+                    </button>
+                </Col>
+            </Row>
+            {
+                Loading ? <div className='py-3'>
+                    <Loader />
+                </div> :
+                    <div className='application_table assigned_tenders'>
+                        <Table responsive={!assignedTenderData || assignedTenderData?.response?.length === 0 ? false : true}>
+                            <thead>
+                                <tr>
+                                    <th>S No.</th>
+                                    <th>Tender No.</th>
+                                    <th>Selected By</th>
+                                    <th>Company</th>
+                                    <th>Advertise Date</th>
+                                    <th>Due Date</th>
+                                    <th>Due Time</th>
+                                    <th>Download</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    Array.isArray(assignedTenderData?.response) && assignedTenderData?.response?.map((t, i) => {
+                                        return (
+                                            <tr>
+                                                <td>{i + 1}</td>
+                                                <td>{t.tenderNo}</td>
+                                                <td>{t.selectedBy}</td>
+                                                <td>{t.company}</td>
+                                                <td>{t.advertiseDate}</td>
+                                                <td> <span className={tenderDate(t.closingDate)}>{t.closingDate}</span> </td>
+                                                <td>{t.closingTime}</td>
+                                                <td> <a href={t.document} target='_blank' style={{ paddingLeft: "25px" }}> <MdOutlineFileDownload /> </a> </td>
+                                                <td>
+                                                    <span>
+                                                        <Select placeholder="Select Actions" options={options}
+                                                            styles={TableStyles} onChange={(e) => selectHandler(e.value, t.id)} />
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
+                        </Table>
+                        {assignedTenderData?.response?.length === 0 && <p className='text-center' style={{ fontWeight: "600" }}>No Data Found</p>}
+                        {!assignedTenderData && <p className='text-center' style={{ fontWeight: "600" }}>Please Search Tender By Department</p>}
+                    </div>
+            }
         </div>
     )
 }

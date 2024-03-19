@@ -1,48 +1,45 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Form, Modal, Row } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { dashboardColorStyles, departmentStyles, login } from '../../../Utils/Helper';
-import { AppliedTendersGet } from '../../../Redux/Action/Dashboard';
-import { MdOutlineClose } from "react-icons/md";
+import { departmentStyles } from '../../../Utils/Helper';
+import { AppliedTendersGet, appliedTenderDocument, selectedTotalDepartments } from '../../../Redux/Action/Dashboard';
+import { MdOutlineClose, MdOutlineFileDownload } from "react-icons/md";
 import Select from "react-select";
-import { MdOutlineFileDownload } from "react-icons/md";
-import './Documents.css';
 import Loader from '../../../Utils/Loader';
+import './Documents.css';
 
 const Documents = () => {
-    // const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [department, setDepartment] = useState(null);
     const [show, setShow] = useState(false)
     const [detailShow, setDetailShow] = useState(false)
     const [docDetails, setDocDetails] = useState({})
+    const [appliedTenders, setAppliedTenders] = useState([]);
     const [tab, setTab] = useState("all");
 
     useEffect(() => {
-        const formData = new FormData();
-        formData.append("email", login.email)
-        formData.append("token", login.token)
-
+        dispatch(selectedTotalDepartments())
         dispatch(AppliedTendersGet())
-
-        return () => {
-            dispatch({ type: "GET_SEARCH_DOCUMENT_RESET" })
-        }
     }, [])
 
-    const { loading: departmentLoading, departmentsData } = useSelector((state) => state.departmentsGet)
+    const { loading: departmentLoading, getTotalDepartments } = useSelector((state) => state.selectedTendersDepartments)
     const { loading, getAppliedTendersData } = useSelector((state) => state.appliedTendersData)
+
+    useEffect(() => {
+        if (getAppliedTendersData?.response) {
+            setAppliedTenders(getAppliedTendersData?.response)
+        }
+    }, [getAppliedTendersData])
 
     const submitDocHandler = (data) => {
         setDocDetails(data)
         setShow(true)
     }
 
-    const departOption = departmentsData?.response?.map((d) => {
+    const departOption = Array.isArray(getTotalDepartments?.response) && getTotalDepartments?.response?.map((d) => {
         return {
-            value: d?.id, label: d?.name
+            value: d?.department, label: d.department
         }
     })
 
@@ -63,6 +60,50 @@ const Documents = () => {
         }
     }
 
+    const commentHandler = (value, name) => {
+        const updatedUploadedDocuments = { ...docDetails.uploadedComments };
+        updatedUploadedDocuments[name] = value;
+        setDocDetails({
+            ...docDetails,
+            uploadedComments: updatedUploadedDocuments
+        });
+    }
+
+    const docFileHandler = (value, name) => {
+        const updatedUploadedDocuments = { ...docDetails.uploadedDocuments };
+        updatedUploadedDocuments[name] = value.files[0];
+        setDocDetails({
+            ...docDetails,
+            uploadedDocuments: updatedUploadedDocuments
+        });
+    }
+
+    const submitDocsHandler = () => {
+        const formData = new FormData();
+        for (let i in docDetails) {
+            if (i === 'uploadedComments') {
+                formData.append(i, JSON.stringify(docDetails[i]))
+            }
+            else if (i === 'uploadedDocuments') {
+                formData.append(i, JSON.stringify(docDetails[i]))
+            }
+            else if (i === 'uploadedDocuments') {
+                for (let v in docDetails["uploadedDocuments"]) {
+                    formData.append(v, docDetails["uploadedDocuments"][v])
+                }
+            }
+            else {
+                formData.append(i, docDetails[i])
+            }
+        }
+
+        for (let v of formData) {
+            console.log(v)
+        }
+
+        // dispatch(appliedTenderDocument(formData))
+    }
+
     const modal = <Modal centered className='doc_type' show={show} size='lg'>
         <Modal.Body>
             <div className='add_doc_type req_documents' style={{ transition: "all 0.3s ease" }}>
@@ -74,14 +115,23 @@ const Documents = () => {
                     <Row>
                         <Col md={12}> <h6>Documents</h6> </Col>
                         {
-                            docDetails?.documentNames?.split(",").map((n, i) => {
+                            docDetails?.documentNames?.split(",")?.map((n, i) => {
                                 return (
                                     <>
                                         <Col md={6}>
                                             <Form.Group className="mb-3">
-                                                <Form.Label>{n} <span>(Deadline: {docDetails?.documentDeadlines?.split(",")[i]})</span>
-                                                    <span> *</span></Form.Label>
-                                                <Form.Control type="file" />
+                                                <Form.Label className='d-flex justify-content-between'>
+                                                    <p>{n}<span> *</span> </p>
+                                                    {
+                                                        !docDetails.uploadedDocuments[n] &&
+                                                        <span>Deadline: {docDetails?.documentDeadlines?.split(",")[i]}</span>
+                                                    }
+                                                </Form.Label>
+                                                {
+                                                    docDetails.uploadedDocuments[n] ?
+                                                        <button type='button' className='download_btn'>Download</button> :
+                                                        <Form.Control type="file" onChange={(e) => docFileHandler(e.target, n)} />
+                                                }
                                             </Form.Group>
                                         </Col>
                                     </>
@@ -91,12 +141,14 @@ const Documents = () => {
 
                         <Col md={12}> <h6>Comments</h6> </Col>
                         {
-                            docDetails?.commenterNames?.split(",")?.map((c) => {
+                            docDetails?.commenterNames?.split(",")?.map((c, i) => {
                                 return (
                                     <Col md={6}>
                                         <Form.Group className="mb-3">
                                             <Form.Label>{c} Comment <span>*</span></Form.Label>
-                                            <Form.Control type="text" placeholder={`Enter ${c} Comment`} />
+                                            <Form.Control type="text" placeholder={`Enter ${c} Comment`}
+                                                value={docDetails?.uploadedComments[c] ? docDetails.uploadedComments[c] : null}
+                                                onChange={(e) => commentHandler(e.target.value, c)} />
                                         </Form.Group>
                                     </Col>
                                 )
@@ -104,7 +156,7 @@ const Documents = () => {
                         }
                         <Col md={12}>
                             <div className='next_btn'>
-                                <button> Apply </button>
+                                <button type='button' onClick={submitDocsHandler}> Submit </button>
                             </div>
                         </Col>
                     </Row>
@@ -146,17 +198,19 @@ const Documents = () => {
         </Modal.Body>
     </Modal>
 
+    const searchByDepartmentHandler = () => {
+        let filterTender = getAppliedTendersData?.response?.filter((t) => t.department === department)
+        setAppliedTenders(filterTender)
+    }
+
     return (
         <div className='dashboard_main' style={{ padding: "15px 10px" }}>
             {modal}
             {modal2}
-            <Row>
-                <Col md={12}>
-                    <h1>Documents</h1>
-                </Col>
-            </Row>
 
-            <Row className='m-3 align-items-end pb-3' style={{ borderBottom: "1px solid #8080804d" }}>
+            <h1>Applied Tenders</h1>
+
+            <Row className='align-items-end pb-3' style={{ borderBottom: "1px solid #8080804d" }}>
                 <Col md={3}>
                     <Form.Group className="form_field">
                         <Form.Label>Department <span>*</span> </Form.Label>
@@ -164,9 +218,7 @@ const Documents = () => {
                     </Form.Group>
                 </Col>
                 <Col md={3}>
-                    <button className='search_btn'>
-                        Search
-                    </button>
+                    <button className='search_btn' onClick={searchByDepartmentHandler}> Search </button>
                 </Col>
             </Row>
 
@@ -181,7 +233,7 @@ const Documents = () => {
                     loading ? <Loader /> :
                         <Row style={{ gap: "15px 0" }}>
                             {
-                                getAppliedTendersData?.response?.map((t) => {
+                                appliedTenders?.map((t) => {
                                     return (
                                         <Col md={6}>
                                             <div className='interested_tender_box'>
@@ -192,7 +244,6 @@ const Documents = () => {
                                                             <p><span>Tender No.</span> {t.tenderNo}</p>
                                                             <p><span>Tender Closing Date: </span> <b className={tenderDate(t.closingDate)}> {t.closingDate} - {t.closingTime} </b> </p>
                                                             <p><span>Docs. Requirements: </span> <b className='urgent'>Pending</b></p>
-                                                            <p><span>Tender Description: </span> {t.detail} </p>
                                                         </div>
                                                     </Col>
                                                     <Col md={12}>
@@ -210,6 +261,7 @@ const Documents = () => {
                                     )
                                 })
                             }
+                            {appliedTenders?.length === 0 && <h5 style={{ fontWeight: "600" }} className='text-center my-3'>No Data Found</h5>}
                         </Row>
                 }
             </div>

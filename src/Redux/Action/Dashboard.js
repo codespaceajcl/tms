@@ -7,30 +7,6 @@ const config = {
     }
 };
 
-// DASHBOARD
-export const dashboardGet = (formData) => async (dispatch) => {
-    try {
-        dispatch({
-            type: "DASHBOARD_GET_REQUEST",
-        });
-
-        const { data } = await axios.post("docuware/getDashboardData/", formData);
-
-        dispatch({
-            type: "DASHBOARD_GET_SUCCESS",
-            payload: data,
-            success: true,
-        });
-
-    } catch (e) {
-        dispatch({
-            type: "DASHBOARD_GET_FAILED",
-            payload: e?.response?.data?.message,
-            success: false,
-        });
-    }
-};
-
 // ALL TENDER COMPANIES GET
 export const getAllTendersCompanies = () => async (dispatch) => {
     try {
@@ -128,13 +104,13 @@ export const userCompaniesFilter = (formData) => async (dispatch) => {
 };
 
 // GET DEPARTMENTS
-export const getDepartments = (formData) => async (dispatch) => {
+export const getDepartments = () => async (dispatch) => {
     try {
         dispatch({
             type: "GET_DEPARTMENTS_REQUEST",
         });
 
-        const { data } = await axios.post("tms/getDepartments/", formData, config);
+        const { data } = await axios.get("tms/getDepartments/", config);
 
         dispatch({
             type: "GET_DEPARTMENTS_SUCCESS",
@@ -345,6 +321,7 @@ export const AppliedTendersGet = () => async (dispatch) => {
 
 
 
+
 // APPLIED TENDER DOCUMENT 
 export const appliedTenderDocument = (formData) => async (dispatch) => {
     try {
@@ -435,6 +412,30 @@ export const tendersResultsLoss = (formData) => async (dispatch) => {
     } catch (e) {
         dispatch({
             type: "TENDERS_RESULT_LOSS_FAILED",
+            payload: e?.response?.data?.message,
+            success: false,
+        });
+    }
+};
+
+// DASHBOARD
+export const dashboardGet = (formData) => async (dispatch) => {
+    try {
+        dispatch({
+            type: "DASHBOARD_GET_REQUEST",
+        });
+
+        const { data } = await axios.post("docuware/getDashboardData/", formData);
+
+        dispatch({
+            type: "DASHBOARD_GET_SUCCESS",
+            payload: data,
+            success: true,
+        });
+
+    } catch (e) {
+        dispatch({
+            type: "DASHBOARD_GET_FAILED",
             payload: e?.response?.data?.message,
             success: false,
         });

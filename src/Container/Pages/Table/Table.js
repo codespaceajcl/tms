@@ -6,10 +6,7 @@ import { Col, Form, Modal, Row, Spinner, Table } from 'react-bootstrap';
 import Select from "react-select";
 import { MdOutlineClose, MdOutlineFileDownload } from "react-icons/md";
 import { FaPlus } from "react-icons/fa6";
-import {
-  addDepartment, getAllTenders, getAllTendersCompanies, getDepartments,
-  getIntrestedTenderCompanies, selectDepartment, userCompaniesFilter
-} from '../../../Redux/Action/Dashboard';
+import { addDepartment, getAllTenders, getAllTendersCompanies, getDepartments, getIntrestedTenderCompanies, selectDepartment, userCompaniesFilter } from '../../../Redux/Action/Dashboard';
 import { errorNotify, successNotify } from '../../../Utils/Toast';
 import MultiSelect from 'multiselect-react-dropdown';
 import './Table.css';
@@ -48,7 +45,7 @@ const TableView = () => {
 
     dispatch(getAllTendersCompanies())
     dispatch(getIntrestedTenderCompanies(formData))
-    dispatch(getDepartments(formData))
+    dispatch(getDepartments())
 
     return () => {
       dispatch({ type: "GET_ALL_TENDERS_RESET" })
@@ -96,11 +93,13 @@ const TableView = () => {
   }, [addDepartmentData])
 
   useEffect(() => {
-    const getSelectedCompanies = Array.isArray(tendersCompaniesData?.response) ? tendersCompaniesData?.response?.map((t) => {
-      return t.company
-    }) : []
-    setSaveCompanies(getSelectedCompanies)
-  }, [])
+    if (tendersCompaniesData?.response) {
+      const getSelectedCompanies = Array.isArray(tendersCompaniesData?.response) ? tendersCompaniesData?.response?.map((t) => {
+        return t.company
+      }) : []
+      setSaveCompanies(getSelectedCompanies)
+    }
+  }, [tendersCompaniesData])
 
   const selectedHandler = () => {
     if (depart.length === 0 || saveTenderId.length === 0) {
@@ -117,9 +116,7 @@ const TableView = () => {
   }
 
   const createHandler = () => {
-
     let emails = Object.values(searchValues)
-
     if (addDepart.name.length === 0 || addDepart.pocName.length === 0 || addDepart.pocContact.length === 0) {
       errorNotify("Please filled up all fields");
       return;
@@ -144,20 +141,9 @@ const TableView = () => {
     let value = parseInt(e.target.value);
     value = Math.min(Math.max(value, 0), 10);
     setNumEmails(value);
-
-    // const num = parseInt(e.target.value);
-    // const inputs = [];
-    // for (let i = 0; i < num; i++) {
-    //   inputs.push('');
-    // }
-    // setEmailInputs(inputs);
   };
 
   const handleEmailInputChange = (index, e) => {
-    // const updatedInputs = [...emailInputs];
-    // updatedInputs[index] = value;
-    // setEmailInputs(updatedInputs);
-
     const { name, value } = e.target;
     setSearchValues({ ...searchValues, [name]: value });
   };
@@ -318,6 +304,23 @@ const TableView = () => {
     }
   }
 
+  const tenderDate = (closingDate) => {
+    let currentDate = new Date();
+    let dueDate = new Date(closingDate);
+
+    let differenceInDays = Math.floor((dueDate - currentDate) / (1000 * 60 * 60 * 24))
+
+    if (differenceInDays < 10) {
+      return "urgent";
+    }
+    else if (differenceInDays <= 30 && differenceInDays > 10) {
+      return "near_by";
+    }
+    else {
+      return "not_urgent";
+    }
+  }
+
   const backHandler = () => {
     dispatch({ type: "GET_ALL_TENDERS_RESET" })
     setLoadingTenderId(null)
@@ -333,14 +336,12 @@ const TableView = () => {
 
   return (
     <div className='table_main'>
-      {modal}
-      {modal2}
-      {modal3}
+      {modal} {modal2} {modal3}
 
       <div className='application_main'>
         <h1>All Tenders</h1>
 
-        <div className='companies_dropdown_wrapper'>
+        <div className='companies_dropdown_wrapper pb-3' style={{ borderBottom: "1px solid #8080804d" }}>
           <Form.Group className="form_field">
             <Form.Label>Companies <span>*</span> </Form.Label>
             <MultiSelect
@@ -378,10 +379,8 @@ const TableView = () => {
                     <thead>
                       <tr>
                         <th>S No.</th>
-                        {/* <th>ID</th> */}
                         <th>Tender No.</th>
                         <th>Company</th>
-                        {/* <th>Detail</th> */}
                         <th>Advertise Date</th>
                         <th>Closing Date</th>
                         <th>Closing Time</th>
@@ -395,12 +394,10 @@ const TableView = () => {
                           return (
                             <tr>
                               <td>{i + 1}</td>
-                              {/* <td>{r.id}</td> */}
                               <td>{r.tenderNo}</td>
                               <td>{r.company}</td>
-                              {/* <td style={{ maxWidth: "300px" }}>{r.detail}</td> */}
                               <td>{r.advertiseDate}</td>
-                              <td>{r.closingDate}</td>
+                              <td className={tenderDate(r.closingDate)}>{r.closingDate}</td>
                               <td>{r.closingTime}</td>
                               <td><a href={r.document} target='_blank'>
                                 <MdOutlineFileDownload style={{ marginLeft: "25px" }} /></a></td>
@@ -450,10 +447,9 @@ const TableView = () => {
                         )
                       })
                     }
-
                     <Col md={12}>
                       {
-                        tendersCompaniesData?.response?.length === 0 &&
+                        Array.isArray(tendersCompaniesData?.response) && tendersCompaniesData?.response?.length === 0 &&
                         <div className='no_data_dound'> No Data Found </div>
                       }
                     </Col>
